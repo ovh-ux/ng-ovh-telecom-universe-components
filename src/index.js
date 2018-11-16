@@ -28,7 +28,6 @@ import tucTelecomPack from './telecom/pack';
 import tucTelecomRetractation from './telecom/retractation';
 import tucTelecomSms from './telecom/sms';
 import tucTelecomTelephony from './telecom/telephony';
-import tucTelecomTelephonyService from './telecom/telephony/service';
 import tucTelecomV4Links from './telecom/v4-links';
 import tucTelecomVoip from './telecom/voip';
 import tucToaster from './toaster';
@@ -69,7 +68,6 @@ angular
     tucTelecomRetractation,
     tucTelecomSms,
     tucTelecomTelephony,
-    tucTelecomTelephonyService,
     tucTelecomV4Links,
     tucTelecomVoip,
     tucToaster,
