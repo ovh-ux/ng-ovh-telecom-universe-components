@@ -23,7 +23,7 @@
     "lint:js": "eslint --quiet --fix ./src",
     "prepare": "rollup -c",
     "start": "rollup -c --watch",
-    "test": "eslint --quiet src",
+    "test": "yarn run lint",
     "version": "npx conventional-changelog-cli -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
     "postversion": "git push && git push --tags"
   },

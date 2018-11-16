@@ -35,6 +35,10 @@ angular
 yarn test
 ```
 
+## Related
+
+* [ovh-manager-telecom](https://github.com/ovh-ux/ovh-manager-telecom) - OVH Control Panel Telecom UI
+
 ## Contributing
 
 Always feel free to help out! Whether it's [filing bugs and feature requests](https://github.com/ovh-ux/telecom-universe-components/issues/new) or working on some of the [open issues](https://github.com/ovh-ux/telecom-universe-components/issues), our [contributing guide](CONTRIBUTING.md) will help get you started.
