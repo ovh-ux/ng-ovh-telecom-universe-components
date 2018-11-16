@@ -22,7 +22,7 @@ import 'angular';
 import telecomUniverseComponents from '@ovh-ux/telecom-universe-components';
 
 angular
-  .modue('myApp', [
+  .module('myApp', [
     …,
     telecomUniverseComponents;
     …,
