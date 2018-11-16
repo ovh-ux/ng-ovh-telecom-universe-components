@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import Chart from 'chart';
+import Chart from 'chart.js'; // eslint-disable-line
 
 import template from './chartjs.html';
 
