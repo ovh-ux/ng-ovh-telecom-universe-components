@@ -1,3 +1,17 @@
+## [1.0.4](https://github.com/ovh-ux/telecom-universe-components/compare/v1.0.3...v1.0.4) (2018-11-19)
+
+
+### Bug Fixes
+
+* **deps:** upgrade component-rollup-config to v5.0.0 ([0b562e1](https://github.com/ovh-ux/telecom-universe-components/commit/0b562e1))
+
+
+### Features
+
+* **ftth-otp:** add otp configuration for fiber migration ([e2d79c4](https://github.com/ovh-ux/telecom-universe-components/commit/e2d79c4))
+
+
+
 ## [1.0.3](https://github.com/ovh-ux/telecom-universe-components/compare/v1.0.2...v1.0.3) (2018-11-16)
 
 
