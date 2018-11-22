@@ -9,6 +9,7 @@ angular
   .module(moduleName, [
     translate,
   ])
-  .filter('tuc-unit-humanize', tucUnitHumanizeFilter);
+  .filter('tuc-unit-humanize', tucUnitHumanizeFilter)
+  .run(/* @ngTranslationsInject ./translations */);
 
 export default moduleName;
