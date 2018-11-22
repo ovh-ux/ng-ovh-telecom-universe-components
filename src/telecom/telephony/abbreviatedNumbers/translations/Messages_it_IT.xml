@@ -33,4 +33,12 @@
    <translation id="telephony_abbreviated_numbers_import_loading_fatal" qtlid="360918">Impossibile leggere il file.</translation>
    <translation id="telephony_abbreviated_numbers_import_loading_oversize" qtlid="360931">La dimensione del file supera i 50 KB. Suddividi il tuo file e importa le parti una a una.</translation>
    <translation id="telephony_abbreviated_numbers_import_loading_bad_content" qtlid="360944">Il contenuto del file non è corretto.</translation>
+
+   <translation id="telephony_abbreviated_numbers_cancel" qtlid="37863">Annulla</translation>
+   <translation id="telephony_abbreviated_numbers_close" qtlid="4670">Chiudi</translation>
+   <translation id="telephony_abbreviated_numbers_common_actions" qtlid="72809">Azioni</translation>
+   <translation id="telephony_abbreviated_numbers_common_add" qtlid="37923">Aggiungi</translation>
+   <translation id="telephony_abbreviated_numbers_delete" qtlid="2414">Elimina</translation>
+   <translation id="telephony_abbreviated_numbers_edit" qtlid="6766">Modifica</translation>
+   <translation id="telephony_abbreviated_numbers_submit" qtlid="26047">Conferma</translation>
 </translations>

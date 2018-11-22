@@ -13,6 +13,7 @@
    <translation id="telephony_calls_filtering_table_status_delete_success" qtlid="358903">Trinama...</translation>
    <translation id="telephony_calls_filtering_table_status_new" qtlid="26791">Kuriama</translation>
    <translation id="telephony_calls_filtering_table_type" qtlid="2642">Tipas</translation>
+   <translation id="telephony_calls_filtering_table_status_refresh" qtlid="250030">Atnaujinti</translation>
    <translation id="telephony_calls_filtering_table_type_incoming" qtlid="358916">Įeinantys skambučiai</translation>
    <translation id="telephony_calls_filtering_table_type_outgoing" qtlid="358929">Išeinantys skambučiai</translation>
    <translation id="telephony_calls_filtering_table_list" qtlid="358942">Sąrašas</translation>
@@ -49,4 +50,7 @@
    <translation id="telephony_calls_filtering_number_international" qtlid="358851">Tarptautiniu formatu</translation>
    <translation id="telephony_calls_filtering_add_already_exist" qtlid="358760">Toks filtras sąraše jau yra.</translation>
    <translation id="telephony_calls_filtering_add" qtlid="37923">Pridėti</translation>
+   <translation id="telephony_calls_filtering_cancel" qtlid="37863">Anuliuoti</translation>
+   <translation id="telephony_calls_filtering_pagination_display" qtlid="69353">Rodyti</translation>
+   <translation id="telephony_calls_filtering_pagination_page" qtlid="239246">Puslapis {{currentPage}} / {{nbPages}}</translation>
 </translations>
