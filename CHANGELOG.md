@@ -1,3 +1,12 @@
+## [1.0.5](https://github.com/ovh-ux/telecom-universe-components/compare/v1.0.4...v1.0.5) (2018-11-23)
+
+
+### Bug Fixes
+
+* **unit.humazine:** add missing translations ([78e54f9](https://github.com/ovh-ux/telecom-universe-components/commit/78e54f9))
+
+
+
 ## [1.0.4](https://github.com/ovh-ux/telecom-universe-components/compare/v1.0.3...v1.0.4) (2018-11-19)
 
 
