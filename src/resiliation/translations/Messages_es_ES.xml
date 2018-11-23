@@ -18,4 +18,7 @@
    <translation id="resiliation_choice_other" qtlid="19963">Otro</translation>
    <translation id="resiliation_choice_technicalProblems" qtlid="313429">Problemas técnicos</translation>
    <translation id="resiliation_cancel" qtlid="313442">Cancelar la baja en curso</translation>
+
+   <translation id="resiliation_common_cancel" qtlid="37863">Cancelar</translation>
+   <translation id="resiliation_resiliation" qtlid="48646">Dar de baja</translation>
 </translations>
