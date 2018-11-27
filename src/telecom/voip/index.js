@@ -2,6 +2,8 @@ import angular from 'angular';
 
 import 'ovh-api-services';
 
+import { TUC_TELEPHONY_ALIAS } from './telecom-voip.constant';
+
 import TucVoipBillingAccount from './billingAccount/voip-billing-account.factory';
 import TucVoipLinePhoneFunction from './feature/line/line/phone/function/voip-feature-line-line-phone-function.factory';
 import TucVoipLinePhone from './feature/line/line/phone/voip-feature-line-line-phone.factory';
@@ -18,6 +20,8 @@ import tucVoipLinePhone from './feature/line/line/phone/voip-feature-line-line-p
 import tucVoipLine from './feature/line/line/voip-feature-line-line.service';
 import tucVoipLineFeature from './feature/line/voip-feature-line.service';
 import tucVoipService from './service/voip-service.service';
+import tucVoipServiceAlias from './service/alias/voip-service-alias.service';
+import tucVoipServiceLine from './service/line/voip-service-line.service';
 import tucTelecomVoip from './telecom-voip.service';
 
 const moduleName = 'tucTelecomVoip';
@@ -26,6 +30,7 @@ angular
   .module(moduleName, [
     'ovh-api-services',
   ])
+  .constant('TUC_TELEPHONY_ALIAS', TUC_TELEPHONY_ALIAS)
   .factory('TucVoipBillingAccount', TucVoipBillingAccount)
   .factory('TucVoipLinePhoneFunction', TucVoipLinePhoneFunction)
   .factory('TucVoipLinePhone', TucVoipLinePhone)
@@ -42,6 +47,8 @@ angular
   .service('tucVoipLine', tucVoipLine)
   .service('tucVoipLineFeature', tucVoipLineFeature)
   .service('tucVoipService', tucVoipService)
+  .service('tucVoipServiceAlias', tucVoipServiceAlias)
+  .service('tucVoipServiceLine', tucVoipServiceLine)
   .service('tucTelecomVoip', tucTelecomVoip);
 
 export default moduleName;

@@ -5,6 +5,7 @@ import _ from 'lodash';
  *  @ngdoc service
  *  @name managerApp.service:tucVoipService
  *
+ *  @requires $q provider
  *  @requires OvhApiTelephony from ovh-api-services
  *  @requires managerApp.object:TucVoipService
  *  @requires managerApp.object:TucVoipServiceAlias
@@ -15,9 +16,10 @@ import _ from 'lodash';
  *  It will differenciate alias and line service types.
  */
 export default class {
-  constructor(OvhApiTelephony, TucVoipService, TucVoipServiceAlias, TucVoipServiceLine) {
+  constructor($q, OvhApiTelephony, TucVoipService, TucVoipServiceAlias, TucVoipServiceLine) {
     'ngInject';
 
+    this.$q = $q;
     this.OvhApiTelephony = OvhApiTelephony;
     this.TucVoipService = TucVoipService;
     this.TucVoipServiceAlias = TucVoipServiceAlias;
@@ -132,6 +134,110 @@ export default class {
   }
 
   /* -----  End of Diagnostic reports  ------ */
+
+  /**
+   *  @ngdoc method
+   *  @name managerApp.service:tucVoipService#getTerminationTask
+   *  @methodOf managerApp.service:tucVoipService
+   *
+   *  @description
+   *  <p>Get pending termination task for a given service.</p>
+   *
+   *  @param  {VoipService} service   The given VoipService.
+   *
+   *  @return {Object}   the pending termination task
+   */
+  getTerminationTask(service) {
+    return this.OvhApiTelephony.Service().OfferTask().v6()
+      .query({
+        billingAccount: service.billingAccount,
+        serviceName: service.serviceName,
+        action: 'termination',
+        type: 'offer',
+      }).$promise.then(offerTaskIds => this.$q
+        .all(_.map(offerTaskIds, id => this.OvhApiTelephony.Service().OfferTask().v6().get({
+          billingAccount: service.billingAccount,
+          serviceName: service.serviceName,
+          taskId: id,
+        }).$promise))
+        .then(tasks => _.first(_.filter(tasks, { status: 'todo' }))));
+  }
+
+   /**
+   *  @ngdoc method
+   *  @name managerApp.service:tucVoipService#getServiceDirectory
+   *  @methodOf managerApp.service:tucVoipService
+   *
+   *  @description
+   *  <p>Get directory for a given service.</p>
+   *
+   *  @param  {VoipService} service   The given VoipService.
+   *
+   *  @return {Promise}  Promise that returns directory
+   */
+  getServiceDirectory(service) {
+    return this.OvhApiTelephony.Service().v6()
+      .directory({
+        billingAccount: service.billingAccount,
+        serviceName: service.serviceName,
+      }).$promise;
+  }
+
+   /**
+   *  @ngdoc method
+   *  @name managerApp.service:tucVoipService#getServiceConsumption
+   *  @methodOf managerApp.service:tucVoipService
+   *
+   *  @description
+   *  <p>Get consumption of a given service.</p>
+   *
+   *  @param  {VoipService} service The given VoipService service.
+   *
+   *  @return {Array}               Consumption list of details
+   */
+  getServiceConsumption(service) {
+    return this.OvhApiTelephony.Service().VoiceConsumption().v6()
+      .query({
+        billingAccount: service.billingAccount,
+        serviceName: service.serviceName,
+      }).$promise.then(ids => this.$q
+        .all(_.map(
+          _.chunk(ids, 50),
+          chunkIds => this.OvhApiTelephony.Service().VoiceConsumption().v6()
+            .getBatch({
+              billingAccount: service.billingAccount,
+              serviceName: service.serviceName,
+              consumptionId: chunkIds,
+            }).$promise,
+        ))
+        .then(chunkResult => _.flatten(chunkResult)))
+      .then(result => _.map(result, 'value'));
+  }
+
+   /**
+   *  @ngdoc method
+   *  @name managerApp.service:tucVoipService#fetchServiceRepayments
+   *  @methodOf managerApp.service:tucVoipService
+   *
+   *  @description
+   *  <p>Fetch repayments of a given service.</p>
+   *
+   *  @param  {VoipService} service The given VoipService service.
+   *
+   *  @return {Array}               Repayments list
+   */
+  fetchServiceRepayments({ billingAccount, serviceName }) {
+    return this.OvhApiTelephony.Service().RepaymentConsumption().v6().query({
+      billingAccount,
+      serviceName,
+    }).$promise
+      .then(repaymentsIds => this.$q.all(repaymentsIds.map(repayment => this.OvhApiTelephony
+        .Service().RepaymentConsumption().v6().get({
+          billingAccount,
+          serviceName,
+          consumptionId: repayment,
+        }).$promise)));
+  }
 
   /* ==============================
     =            Filters            =
