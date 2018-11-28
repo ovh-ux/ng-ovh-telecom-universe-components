@@ -16,9 +16,8 @@ import _ from 'lodash';
  *  It will differenciate alias and line service types.
  */
 export default class {
+  /* @ngInject */
   constructor($q, OvhApiTelephony, TucVoipService, TucVoipServiceAlias, TucVoipServiceLine) {
-    'ngInject';
-
     this.$q = $q;
     this.OvhApiTelephony = OvhApiTelephony;
     this.TucVoipService = TucVoipService;
@@ -163,7 +162,7 @@ export default class {
         .then(tasks => _.first(_.filter(tasks, { status: 'todo' }))));
   }
 
-   /**
+  /**
    *  @ngdoc method
    *  @name managerApp.service:tucVoipService#getServiceDirectory
    *  @methodOf managerApp.service:tucVoipService
@@ -183,7 +182,7 @@ export default class {
       }).$promise;
   }
 
-   /**
+  /**
    *  @ngdoc method
    *  @name managerApp.service:tucVoipService#getServiceConsumption
    *  @methodOf managerApp.service:tucVoipService
@@ -214,7 +213,7 @@ export default class {
       .then(result => _.map(result, 'value'));
   }
 
-   /**
+  /**
    *  @ngdoc method
    *  @name managerApp.service:tucVoipService#fetchServiceRepayments
    *  @methodOf managerApp.service:tucVoipService

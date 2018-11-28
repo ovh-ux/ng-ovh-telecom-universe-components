@@ -8,9 +8,8 @@
  *  Service that manage specific API calls for sip/trunk lines.
  */
 export default class {
+  /* @ngInject */
   constructor(OvhApiTelephony) {
-    'ngInject';
-
     this.OvhApiTelephony = OvhApiTelephony;
   }
 
