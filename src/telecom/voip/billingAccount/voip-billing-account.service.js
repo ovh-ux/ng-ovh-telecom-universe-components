@@ -11,9 +11,8 @@ import _ from 'lodash';
  *  Service that manage API calls to `/telephony/{billingAccount}`.
  */
 export default class {
+  /* @ngInject */
   constructor(OvhApiTelephony, TucVoipBillingAccount) {
-    'ngInject';
-
     this.OvhApiTelephony = OvhApiTelephony;
     this.TucVoipBillingAccount = TucVoipBillingAccount;
   }
