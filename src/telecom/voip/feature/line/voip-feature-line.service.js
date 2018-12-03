@@ -13,9 +13,8 @@
  *    and `/telephony/{billingAccount}/fax/{serviceName}`</p>
  */
 export default class {
+  /* @ngInject */
   constructor(tucVoipLine, tucVoipFax, OvhApiTelephony) {
-    'ngInject';
-
     this.tucVoipLine = tucVoipLine;
     this.tucVoipFax = tucVoipFax;
     this.OvhApiTelephony = OvhApiTelephony;

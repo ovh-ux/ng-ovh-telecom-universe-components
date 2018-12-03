@@ -11,9 +11,8 @@ import angular from 'angular';
  *    `/telephony/{billingAccount}/line/{serviceName}/phone/functionKey/{keyNum}`</p>
  */
 export default class {
+  /* @ngInject */
   constructor($q, OvhApiTelephony, TucVoipLinePhoneFunction) {
-    'ngInject';
-
     this.$q = $q;
     this.OvhApiTelephony = OvhApiTelephony;
     this.TucVoipLinePhoneFunction = TucVoipLinePhoneFunction;

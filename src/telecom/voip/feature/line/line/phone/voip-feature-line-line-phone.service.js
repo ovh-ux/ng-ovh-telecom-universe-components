@@ -11,9 +11,8 @@ import angular from 'angular';
  *    `/telephony/{billingAccount}/line/{serviceName}/phone`</p>
  */
 export default class {
+  /* @ngInject */
   constructor(TucVoipLinePhone, tucVoipService, OvhApiTelephony) {
-    'ngInject';
-
     this.TucVoipLinePhone = TucVoipLinePhone;
     this.tucVoipService = tucVoipService;
     this.OvhApiTelephony = OvhApiTelephony;
