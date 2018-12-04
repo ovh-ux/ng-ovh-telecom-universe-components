@@ -15,9 +15,8 @@ import _ from 'lodash';
  *    (see {@link https://eu.api.ovh.com/console/#/telephony/%7BbillingAccount%7D/line#GET telephony line APIs})</p>
  */
 export default class {
+  /* @ngInject */
   constructor(OvhApiTelephony, TucVoipLine) {
-    'ngInject';
-
     this.OvhApiTelephony = OvhApiTelephony;
     this.TucVoipLine = TucVoipLine;
   }

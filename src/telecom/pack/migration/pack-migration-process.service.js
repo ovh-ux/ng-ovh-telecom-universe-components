@@ -221,7 +221,12 @@ export default /* @ngInject */ function ($q, OvhApiPackXdsl, Poller) {
   self.selectOffer = function (offer) {
     migrationProcess.selectedOffer = offer;
     if (_.includes(migrationProcess.selectedOffer.offerName.toLowerCase(), 'ftth')) {
-      migrationProcess.currentStep = 'buildingDetails';
+      // Check if the current offer is already FTTH
+      if (_.includes(migrationProcess.pack.description.toLowerCase(), 'ftth')) {
+        migrationProcess.currentStep = 'serviceDelete';
+      } else {
+        migrationProcess.currentStep = 'buildingDetails';
+      }
     } else if (migrationProcess.selectedOffer.totalSubServiceToDelete > 0) {
       migrationProcess.currentStep = 'serviceDelete';
     } else if (migrationProcess.selectedOffer.needNewModem) {

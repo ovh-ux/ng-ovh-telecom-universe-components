@@ -843,10 +843,10 @@
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
 
-"@ovh-ux/component-rollup-config@^5.0.0-beta.0":
-  version "5.0.0-beta.0"
-  resolved "https://registry.yarnpkg.com/@ovh-ux/component-rollup-config/-/component-rollup-config-5.0.0-beta.0.tgz#ddf794fbb831e599dbff342b56c7f4653537f1be"
-  integrity sha512-eG+igbuPBablDGey6qYgr5umYTj8pgiLZgv7l9JdBmagcRFTEDWi7kxIh3uZ5JIlTipZu5sxIQLzZVL/wLzZ9A==
+"@ovh-ux/component-rollup-config@^5.0.0-beta.1":
+  version "5.0.0-beta.1"
+  resolved "https://registry.yarnpkg.com/@ovh-ux/component-rollup-config/-/component-rollup-config-5.0.0-beta.1.tgz#963cd63d96fa221861457e4dce6175600c6d05c8"
+  integrity sha512-UGpfj0T/91wOSFiRXuOQhxrRTeXuteht7XwZYfWX0y609+vvihbYyKBl2308FzvnTjhp+ZKLdXGq/CaKB0+Bpg==
   dependencies:
     "@babel/core" "^7.1.2"
     "@babel/plugin-syntax-dynamic-import" "^7.0.0"

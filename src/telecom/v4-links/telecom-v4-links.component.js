@@ -19,16 +19,17 @@ export default {
     =            INITIALIZATION            =
     ====================================== */
 
-    // self.$onInit = function () {
-    const mainActions = _.filter(self.actions, action => action.main && !action.divider);
+    self.$onInit = () => {
+      const mainActions = _.filter(self.actions, action => action.main && !action.divider);
 
-    self.actionRows.main = _.chunk(mainActions, 2);
+      self.actionRows.main = _.chunk(mainActions, 2);
 
-    self.actionRows.normal = _.chain(self.actions)
-      .difference(mainActions)
-      .filter(action => !action.divider)
-      .chunk(3)
-      .value();
+      self.actionRows.normal = _.chain(self.actions)
+        .difference(mainActions)
+        .filter(action => !action.divider)
+        .chunk(3)
+        .value();
+    };
 
     /* -----  End of INITIALIZATION  ------*/
   },
