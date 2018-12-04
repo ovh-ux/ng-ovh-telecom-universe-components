@@ -13,9 +13,8 @@ import _ from 'lodash';
  *  <p>This service will manage API calls to `/telephony/{billingAccount}/fax/{serviceName}` (see {@link https://eu.api.ovh.com/console/#/telephony/%7BbillingAccount%7D/fax#GET telephony fax APIs})</p>
  */
 export default class {
+  /* @ngInject */
   constructor(OvhApiTelephony, TucVoipLineFeature) {
-    'ngInject';
-
     this.OvhApiTelephony = OvhApiTelephony;
     this.TucVoipLineFeature = TucVoipLineFeature;
   }

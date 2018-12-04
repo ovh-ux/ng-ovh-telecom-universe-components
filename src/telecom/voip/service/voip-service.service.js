@@ -15,9 +15,8 @@ import _ from 'lodash';
  *  It will differenciate alias and line service types.
  */
 export default class {
+  /* @ngInject */
   constructor(OvhApiTelephony, TucVoipService, TucVoipServiceAlias, TucVoipServiceLine) {
-    'ngInject';
-
     this.OvhApiTelephony = OvhApiTelephony;
     this.TucVoipService = TucVoipService;
     this.TucVoipServiceAlias = TucVoipServiceAlias;

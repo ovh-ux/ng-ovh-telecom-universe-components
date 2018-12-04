@@ -29,9 +29,8 @@ import _ from 'lodash';
  *  <p>Groups cache will be removed and everything will be refreshed by APIv7 calls.</p>
  */
 export default class {
+  /* @ngInject */
   constructor(tucVoipBillingAccount, tucVoipService) {
-    'ngInject';
-
     this.tucVoipBillingAccount = tucVoipBillingAccount;
     this.tucVoipService = tucVoipService;
   }
