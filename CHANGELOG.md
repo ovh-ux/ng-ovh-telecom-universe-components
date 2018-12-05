@@ -1,3 +1,12 @@
+# [1.2.0](https://github.com/ovh-ux/telecom-universe-components/compare/v1.1.0...v1.2.0) (2018-12-05)
+
+
+### Features
+
+* **pack.xdsl.modem:** add firmware configuration into modem tab ([7b4d618](https://github.com/ovh-ux/telecom-universe-components/commit/7b4d618))
+
+
+
 # [1.1.0](https://github.com/ovh-ux/telecom-universe-components/compare/v1.0.5...v1.1.0) (2018-12-04)
 
 
