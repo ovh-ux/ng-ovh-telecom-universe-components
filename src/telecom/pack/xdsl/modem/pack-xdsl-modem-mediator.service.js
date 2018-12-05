@@ -54,7 +54,7 @@ export default /* @ngInject */ function ($rootScope, $q, OvhApiXdsl, Poller) {
 
   this.disableCapabilities = function () {
     this.capabilities = _.mapValues(this.capabilities, (val, key) => {
-      if (key === 'canBeManagedByOvh' || key === 'canChangeMtu') {
+      if (['canBeManagedByOvh', 'canChangeMtu', 'canChangeFirmware'].indexOf(key)) {
         return val;
       }
       return false;
