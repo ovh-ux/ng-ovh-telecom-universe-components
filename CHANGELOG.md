@@ -1,3 +1,13 @@
+## [1.2.1](https://github.com/ovh-ux/telecom-universe-components/compare/v1.2.0...v1.2.1) (2018-12-07)
+
+
+### Bug Fixes
+
+* **pack.migration:** use offer description instead of description  ([c5d9432](https://github.com/ovh-ux/telecom-universe-components/commit/c5d9432))
+* **resiliation:** put in cache the resiliation modal ([53e7740](https://github.com/ovh-ux/telecom-universe-components/commit/53e7740))
+
+
+
 # [1.2.0](https://github.com/ovh-ux/telecom-universe-components/compare/v1.1.0...v1.2.0) (2018-12-05)
 
 
