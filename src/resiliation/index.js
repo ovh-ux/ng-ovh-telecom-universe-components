@@ -3,7 +3,7 @@ import translate from 'angular-translate';
 import translateAsyncLoader from '@ovh-ux/translate-async-loader';
 import 'angular-ui-bootstrap';
 
-import tucResiliationReason from './resiliation-reason.component';
+import tucResiliationReason, { templateConfirmation } from './resiliation-reason.component';
 
 const moduleName = 'tucResiliation';
 
@@ -14,6 +14,9 @@ angular
     'ui.bootstrap',
   ])
   .component('tucResiliationReason', tucResiliationReason)
+  .run(/* @ngInject */($templateCache) => {
+    $templateCache.put('resiliation.modal.html', templateConfirmation);
+  })
   .run(/* @ngTranslationsInject ./translations */);
 
 export default moduleName;
