@@ -3,6 +3,8 @@ import _ from 'lodash';
 import template from './resiliation-reason.component.html';
 import templateConfirmation from './resiliation.modal.html';
 
+export { templateConfirmation };
+
 export default {
   bindings: {
     tucResiliationReason: '=?',
