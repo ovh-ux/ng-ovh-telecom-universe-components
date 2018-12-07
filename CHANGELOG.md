@@ -1,3 +1,12 @@
+# [1.3.0](https://github.com/ovh-ux/telecom-universe-components/compare/v1.2.1...v1.3.0) (2018-12-07)
+
+
+### Features
+
+* **telecom.voip:** add missing voip alias feature ([0c05946](https://github.com/ovh-ux/telecom-universe-components/commit/0c05946))
+
+
+
 ## [1.2.1](https://github.com/ovh-ux/telecom-universe-components/compare/v1.2.0...v1.2.1) (2018-12-07)
 
 
