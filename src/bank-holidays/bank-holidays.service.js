@@ -82,6 +82,26 @@ export default class {
 
   /**
    *  @ngdoc method
+   *  @name managerApp.service:tucBankHolidays#getHolidayDate
+   *  @methodOf managerApp.service:tucBankHolidays
+   *
+   *  @description
+   *  Get the bank holiday date
+   *
+   *  @param {Date} bankDay
+   *  @param {Integer} year
+   *
+   *  @return bank holiday date
+   */
+  static getHolidayDate(bankDay, year) {
+    const easterDayOfYear = this.getEaster(year);
+    const bankHolidayDate = bankDay.date ? moment([year, bankDay.date].join('-'))
+      : this.getSpecialBankHoliday(bankDay.name, easterDayOfYear, year);
+    return bankHolidayDate;
+  }
+
+  /**
+   *  @ngdoc method
    *  @name managerApp.service:tucBankHolidays#getBankHolidays
    *  @methodOf managerApp.service:tucBankHolidays
    *
@@ -98,14 +118,10 @@ export default class {
    */
   getBankHolidays(country, year, modalData) {
     const countryBankHolidays = this.BANK_HOLIDAYS[country];
-    const easterDayOfYear = this.getEaster(year);
-    let bankHolidayDate;
     const holidaysList = [];
 
     angular.forEach(countryBankHolidays, (bankDay) => {
-      bankHolidayDate = bankDay.date ? moment([year, bankDay.date].join('-'))
-        : this.getSpecialBankHoliday(bankDay.name, easterDayOfYear, year);
-
+      const bankHolidayDate = this.getHolidayDate(bankDay, year);
       if (moment().subtract(1, 'day').isBefore(bankHolidayDate)) {
         const isBankHolidayInEventRange = modalData.scheduler.isEventInExistingRange({
           categories: 'holidays',
@@ -139,13 +155,10 @@ export default class {
   checkIsBankHoliday(country, dateToCheck) {
     const countryBankHolidays = this.BANK_HOLIDAYS[country];
     const year = dateToCheck.getFullYear();
-    const easterDayOfYear = this.getEaster(year);
-    let bankHolidayDate;
 
     let isBankHoliday = false;
     angular.forEach(countryBankHolidays, (bankDay) => {
-      bankHolidayDate = bankDay.date ? moment([year, bankDay.date].join('-'))
-        : this.getSpecialBankHoliday(bankDay.name, easterDayOfYear, year);
+      const bankHolidayDate = this.getHolidayDate(bankDay, year);
 
       if (bankHolidayDate.format('YYYY-MM-DD') === moment(dateToCheck).format('YYYY-MM-DD')) {
         isBankHoliday = true;
