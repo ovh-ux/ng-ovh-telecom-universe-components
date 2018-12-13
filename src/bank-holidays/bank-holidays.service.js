@@ -50,7 +50,8 @@ export default class {
    *
    *  @return date for special bank holiday
    */
-  static getSpecialBankHoliday(bankDayName, easterDay, year) {
+  /* eslint-disable */
+  getSpecialBankHoliday(bankDayName, easterDay, year) {
     switch (bankDayName) {
       case 'easter_monday':
         return moment(easterDay).add(1, 'day');
@@ -79,6 +80,7 @@ export default class {
         return null;
     }
   }
+  /* eslint-enable */
 
   /**
    *  @ngdoc method
@@ -93,7 +95,7 @@ export default class {
    *
    *  @return bank holiday date
    */
-  static getHolidayDate(bankDay, year) {
+  getHolidayDate(bankDay, year) {
     const easterDayOfYear = this.getEaster(year);
     const bankHolidayDate = bankDay.date ? moment([year, bankDay.date].join('-'))
       : this.getSpecialBankHoliday(bankDay.name, easterDayOfYear, year);
