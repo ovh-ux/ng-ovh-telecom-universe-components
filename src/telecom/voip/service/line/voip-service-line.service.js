@@ -51,4 +51,23 @@ export default class {
       serviceName,
     }, options).$promise;
   }
+
+  /**
+   *  @ngdoc method
+   *  @name managerApp.service:tucVoipServiceLine#getPhone
+   *  @methodOf managerApp.service:tucVoipServiceLine
+   *
+   *  @description
+   *  <p>Get the phone of the line if it exists.</p>
+   *
+   *  @param  {VoipServiceLine} line           (destructured) current voip line
+   *
+   *  @return {Promise}
+   */
+  getPhone({ billingAccount, serviceName }) {
+    return this.OvhApiTelephony.Line().Phone().v6().get({
+      billingAccount,
+      serviceName,
+    }).$promise;
+  }
 }
