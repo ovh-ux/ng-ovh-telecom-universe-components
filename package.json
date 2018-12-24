@@ -15,6 +15,7 @@
     "dist"
   ],
   "main": "./dist/cjs/index.js",
+  "browser": "./dist/umd/telecom-universe-components.js",
   "scripts": {
     "build": "rollup -c",
     "lint": "run-p lint:css lint:html lint:js",
@@ -27,7 +28,6 @@
     "version": "npx conventional-changelog-cli -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
     "postversion": "git push && git push --tags"
   },
-  "browser": "./dist/umd/telecom-universe-components.js",
   "dependencies": {
     "bootstrap": "^3.3.7",
     "ovh-ui-kit": "^2.22.0"
