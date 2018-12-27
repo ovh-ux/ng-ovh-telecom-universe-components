@@ -1,5 +1,6 @@
 import angular from 'angular';
 import moment from 'moment';
+import _ from 'lodash';
 
 /**
  *  @ngdoc service
@@ -13,28 +14,33 @@ export default class {
   /* @ngInject */
   constructor(BANK_HOLIDAYS) {
     this.BANK_HOLIDAYS = BANK_HOLIDAYS;
+
+    this.year = null;
+    this.bankDayName = null;
+    this.easterDay = null;
   }
 
-  /* eslint-disable */
   /**
    *  Get the Easter day according to https://www.irt.org/articles/js052/index.htm
    */
-  getEaster(Y) {
-    const C = Math.floor(Y / 100);
-    const N = Y - (19 * Math.floor(Y / 19));
-    const K = Math.floor((C - 17) / 25);
-    let I = C - Math.floor(C / 4) - Math.floor((C - K) / 3) + (19 * N) + 15;
-    I -= (30 * Math.floor(I / 30));
-    I -= (Math.floor(I / 28) * (1 - (Math.floor(I / 28) * Math.floor(29 / (I + 1)) * Math.floor((21 - N) / 11))));
-    let J = Y + Math.floor(Y / 4) + I + 2 - C + Math.floor(C / 4);
-    J -= (7 * Math.floor(J / 7));
-    const L = I - J;
-    const M = 3 + Math.floor((L + 40) / 44);
-    const D = L + 28 - (31 * Math.floor(M / 4));
+  getEaster() {
+    const constant = Math.floor(this.year / 100);
+    const next = this.year - (19 * Math.floor(this.year / 19));
+    const key = Math.floor((constant - 17) / 25);
+    let int = constant - Math.floor(constant / 4)
+      - Math.floor((constant - key) / 3) + (19 * next) + 15;
+    int -= (30 * Math.floor(int / 30));
+    int -= (Math.floor(int / 28) * (1 - (Math.floor(int / 28) * Math.floor(29 / (int + 1))
+      * Math.floor((21 - next) / 11))));
+    let valJ = this.year + Math.floor(this.year / 4) + int + 2 - constant
+      + Math.floor(constant / 4);
+    valJ -= (7 * Math.floor(valJ / 7));
+    const level = int - valJ;
+    const month = 3 + Math.floor((level + 40) / 44);
+    const day = level + 28 - (31 * Math.floor(month / 4));
 
-    return [Y, _.padLeft(M, 2, '0'), _.padLeft(D, 2, '0')].join('-');
+    return [this.year, _.padLeft(month, 2, '0'), _.padLeft(day, 2, '0')].join('-');
   }
-  /* eslint-enable */
 
   /**
    *  @ngdoc method
@@ -44,43 +50,37 @@ export default class {
    *  @description
    *  Retrieve special bank holiday from easter day.
    *
-   *  @param {String} bankDayName
-   *  @param {Date} easterDay
-   *  @param {Integer} year
-   *
    *  @return date for special bank holiday
    */
-  /* eslint-disable */
-  getSpecialBankHoliday(bankDayName, easterDay, year) {
-    switch (bankDayName) {
+  getSpecialBankHoliday() {
+    switch (this.bankDayName) {
       case 'easter_monday':
-        return moment(easterDay).add(1, 'day');
+        return moment(this.easterDay).add(1, 'day');
       case 'ascension_day':
         // ascension is 40 days after easter
-        return moment(easterDay).add(39, 'day');
+        return moment(this.easterDay).add(39, 'day');
       case 'whit_monday':
         // whit sunday (Pentecost) is 50 days after easter
-        return moment(easterDay).add(50, 'day');
+        return moment(this.easterDay).add(50, 'day');
       case 'good_friday':
         // friday before easter
-        return moment(easterDay).subtract(2, 'day');
+        return moment(this.easterDay).subtract(2, 'day');
       case 'may_day':
         // The May Day bank holiday falls on the first Monday in May
-        return moment().year(year).month(4).startOf('month')
+        return moment().year(this.year).month(4).startOf('month')
           .startOf('isoWeek');
       case 'spring_bank_holiday':
         // last monday in May
-        return moment().year(year).month(4).endOf('month')
+        return moment().year(this.year).month(4).endOf('month')
           .startOf('isoWeek');
       case 'summer_bank_holiday':
         // last monday in August
-        return moment().year(year).month(7).endOf('month')
+        return moment().year(this.year).month(7).endOf('month')
           .startOf('isoWeek');
       default:
         return null;
     }
   }
-  /* eslint-enable */
 
   /**
    *  @ngdoc method
@@ -96,9 +96,12 @@ export default class {
    *  @return bank holiday date
    */
   getHolidayDate(bankDay, year) {
-    const easterDayOfYear = this.getEaster(year);
-    const bankHolidayDate = bankDay.date ? moment([year, bankDay.date].join('-'))
-      : this.getSpecialBankHoliday(bankDay.name, easterDayOfYear, year);
+    this.year = year;
+    this.bankDayName = bankDay.name;
+
+    this.easterDay = this.getEaster();
+    const bankHolidayDate = bankDay.date ? moment([this.year, bankDay.date].join('-'))
+      : this.getSpecialBankHoliday();
     return bankHolidayDate;
   }
 
