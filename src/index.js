@@ -35,6 +35,7 @@ import tucToastError from './toast-error';
 import tucUiSortableHelpers from './uiSortableHelpers';
 import tucUnitHumanize from './unit/humanize';
 import tucValidator from './validator';
+import tucBankHolidays from './bank-holidays';
 
 const moduleName = 'telecomUniverseComponents';
 
@@ -75,6 +76,7 @@ angular
     tucUiSortableHelpers,
     tucUnitHumanize,
     tucValidator,
+    tucBankHolidays,
   ]);
 
 export default moduleName;
