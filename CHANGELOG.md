@@ -1,3 +1,12 @@
+# [1.4.0](https://github.com/ovh-ux/telecom-universe-components/compare/v1.3.0...v1.4.0) (2018-12-31)
+
+
+### Features
+
+* **bank-holidays:** add service to retrieve bank holidays ([b4b2b71](https://github.com/ovh-ux/telecom-universe-components/commit/b4b2b71))
+
+
+
 # [1.3.0](https://github.com/ovh-ux/telecom-universe-components/compare/v1.2.1...v1.3.0) (2018-12-07)
 
 
