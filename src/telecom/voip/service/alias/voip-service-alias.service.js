@@ -868,13 +868,14 @@ export default class {
    *  <p>Returns the redirect number properties.</p>
    *
    *  @param  {VoipService} number (destructured) The given VoipService number.
+   *  @param  {String}      featureType           Redirect feature type (Redirect or ddi)
    *
    *  @return {VoipService} The redirect number
    */
-  fetchRedirectNumber({ billingAccount, serviceName }) {
+  fetchRedirectNumber({ billingAccount, serviceName }, featureType) {
     return this.OvhApiTelephony.Redirect().v6().get({
       billingAccount,
-      featureType: 'redirect',
+      featureType,
       serviceName,
     }).$promise;
   }
@@ -889,13 +890,14 @@ export default class {
    *
    *  @param  {VoipService} number (destructured) The given VoipService number.
    *  @param  {String}      destination           The number to redirect to
+   *  @param  {String}      featureType           Redirect feature type (Redirect or ddi)
    *
    *  @return {Promise}     Polling change destination task that succeed once task is completed
    */
-  changeDestinationRedirectNumber({ billingAccount, serviceName }, destination) {
+  changeDestinationRedirectNumber({ billingAccount, serviceName }, destination, featureType) {
     return this.OvhApiTelephony.Redirect().v6().change({
       billingAccount,
-      featureType: 'redirect',
+      featureType,
       serviceName,
     }, { destination }).$promise.then(({ taskId }) => this.tucVoipServiceTask
       .startPolling(
