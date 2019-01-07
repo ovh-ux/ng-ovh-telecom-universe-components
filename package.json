@@ -19,6 +19,7 @@
   "browser": "./dist/umd/ng-ovh-telecom-universe-components.js",
   "scripts": {
     "build": "rollup -c",
+    "dev": "rollup -c --watch",
     "lint": "run-p lint:css lint:html lint:js lint:md",
     "lint:css": "stylelint 'src/**/*.less' --fix",
     "lint:html": "htmlhint 'src/**/*.html'",
