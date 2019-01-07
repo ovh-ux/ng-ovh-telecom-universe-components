@@ -37,7 +37,7 @@ import tucUnitHumanize from './unit/humanize';
 import tucValidator from './validator';
 import tucBankHolidays from './bank-holidays';
 
-const moduleName = 'telecomUniverseComponents';
+const moduleName = 'ngOvhTelecomUniverseComponents';
 
 angular
   .module(moduleName, [
