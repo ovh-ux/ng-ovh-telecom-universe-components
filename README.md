@@ -18,14 +18,12 @@ yarn add @ovh-ux/telecom-universe-components
 ## Usage
 
 ```js
-import 'angular';
+import angular from 'angular';
 import telecomUniverseComponents from '@ovh-ux/telecom-universe-components';
 
 angular
   .module('myApp', [
-    …,
-    telecomUniverseComponents;
-    …,
+    telecomUniverseComponents,
   ]);
 ```
 
