@@ -1,3 +1,13 @@
+# [1.5.0](https://github.com/ovh-ux/telecom-universe-components/compare/v1.4.0...v1.5.0) (2019-01-07)
+
+
+### Features
+
+* **voip.alias:** handle choice feature type parameter ([31a0a6a](https://github.com/ovh-ux/telecom-universe-components/commit/31a0a6a))
+* **voip.line:** add get phone method ([b2b0325](https://github.com/ovh-ux/telecom-universe-components/commit/b2b0325))
+
+
+
 # [1.4.0](https://github.com/ovh-ux/telecom-universe-components/compare/v1.3.0...v1.4.0) (2018-12-31)
 
 
