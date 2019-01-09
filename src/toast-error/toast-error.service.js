@@ -1,5 +1,5 @@
 export default /* @ngInject */ ($translate, $q, TucToast) => function (err, translationId) {
-  const output = [$translate.instant(translationId || 'an_error_occured')];
+  const output = [$translate.instant(translationId || 'toast_error_an_error_occured')];
 
   if (err.status) {
     output.push(`[${err.status}]`);
