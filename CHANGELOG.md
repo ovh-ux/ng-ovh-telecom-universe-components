@@ -1,3 +1,13 @@
+## [1.5.1](https://github.com/ovh-ux/telecom-universe-components/compare/v1.5.0...v1.5.1) (2019-01-09)
+
+
+### Bug Fixes
+
+* **i18n:** retrieve translations ([bd25c4c](https://github.com/ovh-ux/telecom-universe-components/commit/bd25c4c))
+* **toasterror:** add missing translation ([e9c5e5d](https://github.com/ovh-ux/telecom-universe-components/commit/e9c5e5d))
+
+
+
 # [1.5.0](https://github.com/ovh-ux/telecom-universe-components/compare/v1.4.0...v1.5.0) (2019-01-07)
 
 
