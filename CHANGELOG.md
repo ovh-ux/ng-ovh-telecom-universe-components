@@ -1,3 +1,17 @@
+# [2.0.0](https://github.com/ovh-ux/ng-ovh-telecom-universe-components/compare/v1.5.1...v2.0.0) (2019-01-21)
+
+
+### Code Refactoring
+
+* add missing ovh prefix to the angular module name ([8539e22](https://github.com/ovh-ux/ng-ovh-telecom-universe-components/commit/8539e22))
+
+
+### BREAKING CHANGES
+
+* module is now named as `ngOvhTelecomUniverseComponents`
+
+
+
 ## [1.5.1](https://github.com/ovh-ux/telecom-universe-components/compare/v1.5.0...v1.5.1) (2019-01-09)
 
 
