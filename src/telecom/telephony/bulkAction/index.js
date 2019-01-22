@@ -1,7 +1,7 @@
 import angular from 'angular';
 import translate from 'angular-translate';
-import translateAsyncLoader from '@ovh-ux/translate-async-loader';
 
+import '@ovh-ux/ng-translate-async-loader';
 import 'angular-ui-bootstrap';
 import 'ovh-ui-angular';
 
@@ -17,9 +17,9 @@ const moduleName = 'tucTelecomTelephonyBulkAction';
 
 angular
   .module(moduleName, [
+    'ngTranslateAsyncLoader',
     'oui',
     translate,
-    translateAsyncLoader,
     'ui.bootstrap',
   ])
   .controller('tucTelephonyBulkActionModalCtrl', tucTelephonyBulkActionModalCtrl)
