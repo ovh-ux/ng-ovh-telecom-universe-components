@@ -1,6 +1,7 @@
 import angular from 'angular';
 import translate from 'angular-translate';
-import translateAsyncLoader from '@ovh-ux/translate-async-loader';
+
+import '@ovh-ux/ng-translate-async-loader';
 
 import tucToaster from '../../../toaster';
 
@@ -21,9 +22,9 @@ const moduleName = 'tucTelecomTelephonyAbbreviatedNumbers';
 angular
   .module(moduleName, [
     'ngCsv',
+    'ngTranslateAsyncLoader',
     'oui',
     translate,
-    translateAsyncLoader,
     tucToaster,
     'ui.bootstrap',
   ])
