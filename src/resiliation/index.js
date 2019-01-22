@@ -1,6 +1,7 @@
 import angular from 'angular';
 import translate from 'angular-translate';
-import translateAsyncLoader from '@ovh-ux/translate-async-loader';
+
+import '@ovh-ux/ng-translate-async-loader';
 import 'angular-ui-bootstrap';
 
 import tucResiliationReason, { templateConfirmation } from './resiliation-reason.component';
@@ -9,8 +10,8 @@ const moduleName = 'tucResiliation';
 
 angular
   .module(moduleName, [
+    'ngTranslateAsyncLoader',
     translate,
-    translateAsyncLoader,
     'ui.bootstrap',
   ])
   .component('tucResiliationReason', tucResiliationReason)

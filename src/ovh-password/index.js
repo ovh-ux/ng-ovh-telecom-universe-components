@@ -1,7 +1,7 @@
 import angular from 'angular';
 import translate from 'angular-translate';
-import translateAsyncLoader from '@ovh-ux/translate-async-loader';
 
+import '@ovh-ux/ng-translate-async-loader';
 import 'angular-validation-match';
 import 'ovh-ngstrap';
 
@@ -15,9 +15,9 @@ const moduleName = 'tucOvhPassword';
 
 angular
   .module(moduleName, [
+    'ngTranslateAsyncLoader',
     'ovh-ngStrap',
     translate,
-    translateAsyncLoader,
     'validation.match',
   ])
   .directive('tucOvhPassword', tucOvhPasswordDirective)

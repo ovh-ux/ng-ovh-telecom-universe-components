@@ -1,7 +1,8 @@
 import angular from 'angular';
 import translate from 'angular-translate';
-import translateAsyncLoader from '@ovh-ux/translate-async-loader';
 import uiRouter from '@uirouter/angularjs';
+
+import '@ovh-ux/ng-translate-async-loader';
 
 import tucCsvParser from '../../../csv-parser';
 import tucFileReader from '../../../file-reader';
@@ -22,9 +23,9 @@ const moduleName = 'tucTelecomTelephonyCallsFiltering';
 angular
   .module(moduleName, [
     'ngCsv',
+    'ngTranslateAsyncLoader',
     'oui',
     translate,
-    translateAsyncLoader,
     tucCsvParser,
     tucFileReader,
     tucPhone,

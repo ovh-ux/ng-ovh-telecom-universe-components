@@ -9,7 +9,7 @@ export default [
   config.umd({
     output: {
       globals: {
-        '@ovh-ux/translate-async-loader': 'translate-async-loader',
+        '@ovh-ux/ng-translate-async-loader': 'ngTranslateAsyncLoader',
         '@uirouter/angularjs': 'uiRouter',
         angular: 'angular',
         'angular-translate': 'translate',

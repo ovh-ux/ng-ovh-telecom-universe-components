@@ -1,6 +1,7 @@
 import angular from 'angular';
 import translate from 'angular-translate';
-import translateAsyncLoader from '@ovh-ux/translate-async-loader';
+
+import '@ovh-ux/ng-translate-async-loader';
 import 'ovh-ui-angular';
 
 import tucShippingModeSelectionCtrl from './shipping-mode-selection.controller';
@@ -12,9 +13,9 @@ const moduleName = 'tucShippingModeSelection';
 
 angular
   .module(moduleName, [
+    'ngTranslateAsyncLoader',
     'oui',
     translate,
-    translateAsyncLoader,
   ])
   .controller('tucShippingModeSelectionCtrl', tucShippingModeSelectionCtrl)
   .component('tucShippingModeSelection', tucShippingModeSelection)
