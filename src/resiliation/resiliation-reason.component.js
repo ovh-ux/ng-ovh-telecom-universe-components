@@ -36,11 +36,11 @@ export default {
     this.resiliationChoices = this.resiliationChoices.filter(elt => !self.tucResiliationReasonFilter || (self.tucResiliationReasonFilter.split(',').indexOf(elt.name) > -1));
 
     this.canResiliate = function () {
-      if (self.tucResiliationReasonModel) {
+      if (self.resiliationReasonModel) {
         const model = _.find(self.resiliationChoices, {
-          name: self.tucResiliationReasonModel.type,
+          name: self.resiliationReasonModel.type,
         });
-        return (model.needComment && self.tucResiliationReasonModel.comment) || !model.needComment;
+        return (model.needComment && self.resiliationReasonModel.comment) || !model.needComment;
       }
       return false;
     };

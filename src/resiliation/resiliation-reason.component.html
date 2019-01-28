@@ -10,10 +10,10 @@
         <div class="form-group">
             <div class="radio" data-ng-repeat="choice in ResiliationReasonCtrl.resiliationChoices">
                 <label class="mr-3">
-                    <input type="radio" value="{{choice.name}}" data-ng-model="ResiliationReasonCtrl.tucResiliationReasonModel.type">
+                    <input type="radio" value="{{choice.name}}" data-ng-model="ResiliationReasonCtrl.resiliationReasonModel.type">
                     {{ choice.caption | translate}}
                 </label>
-                <input type="text" data-ng-model="ResiliationReasonCtrl.tucResiliationReasonModel.comment" data-ng-show="choice.needComment && (ResiliationReasonCtrl.tucResiliationReasonModel.type === choice.name)"/>
+                <input type="text" data-ng-model="ResiliationReasonCtrl.resiliationReasonModel.comment" data-ng-show="choice.needComment && (ResiliationReasonCtrl.resiliationReasonModel.type === choice.name)"/>
             </div>
         </div>
         <button
