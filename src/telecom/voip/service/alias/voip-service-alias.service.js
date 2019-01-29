@@ -326,7 +326,7 @@ export default class {
     {
       queueId,
       actionOnClosure, actionOnClosureParam, actionOnOverflow, actionOnOverflowParam,
-      askForRecordDisabling,
+      askForRecordDisabling, followCallForwards,
       maxMember, maxWaitTime,
       record, recordDisablingDigit, recordDisablingLanguage,
     },
@@ -342,6 +342,7 @@ export default class {
         actionOnOverflow,
         actionOnOverflowParam,
         askForRecordDisabling,
+        followCallForwards,
         maxMember,
         maxWaitTime,
         record,
