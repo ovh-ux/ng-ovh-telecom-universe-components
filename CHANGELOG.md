@@ -1,3 +1,12 @@
+## [1.5.2](https://github.com/ovh-ux/telecom-universe-components/compare/v1.5.1...v1.5.2) (2019-01-29)
+
+
+### Bug Fixes
+
+* **resiliation:** use the right binding for reason model ([#68](https://github.com/ovh-ux/telecom-universe-components/issues/68)) ([28805ce](https://github.com/ovh-ux/telecom-universe-components/commit/28805ce))
+
+
+
 ## [1.5.1](https://github.com/ovh-ux/telecom-universe-components/compare/v1.5.0...v1.5.1) (2019-01-09)
 
 
