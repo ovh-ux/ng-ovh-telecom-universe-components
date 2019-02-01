@@ -8,6 +8,7 @@ import 'ovh-ngstrap';
 import tucOvhPasswordDirective from './ovh-password';
 import tucOvhPasswordStrengthBarDirective from './strength/bar/ovh-password-strength-bar';
 import tucOvhPasswordStrengthCheckDirective from './strength/check/ovh-password-strength-check';
+import tucOvhPasswordStrengthCheckTemplate from './strength/check/ovh-password-strength-check.html';
 
 import './ovh-password.less';
 
@@ -28,6 +29,12 @@ angular
       animation: 'flat-fade',
     });
   })
-  .run(/* @ngTranslationsInject ./translations */);
+  .run(/* @ngTranslationsInject ./translations */)
+  .run(/* @ngInject */ ($templateCache) => {
+    $templateCache.put(
+      'telecomUniverseComponents/ovh-password/strength/check/ovh-password-strength-check.html',
+      tucOvhPasswordStrengthCheckTemplate,
+    );
+  });
 
 export default moduleName;
