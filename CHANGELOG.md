@@ -1,3 +1,12 @@
+## [2.0.3](https://github.com/ovh-ux/ng-ovh-telecom-universe-components/compare/v2.0.2...v2.0.3) (2019-03-01)
+
+
+### Bug Fixes
+
+* **voip.alias:** add missing queue edit route parameter ([#75](https://github.com/ovh-ux/ng-ovh-telecom-universe-components/issues/75)) ([4e7c962](https://github.com/ovh-ux/ng-ovh-telecom-universe-components/commit/4e7c962))
+
+
+
 ## [2.0.2](https://github.com/ovh-ux/ng-ovh-telecom-universe-components/compare/v2.0.1...v2.0.2) (2019-02-14)
 
 
