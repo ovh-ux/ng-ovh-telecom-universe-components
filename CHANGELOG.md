@@ -1,3 +1,12 @@
+## [2.0.4](https://github.com/ovh-ux/ng-ovh-telecom-universe-components/compare/v2.0.3...v2.0.4) (2019-03-04)
+
+
+### Bug Fixes
+
+* **resiliation:** use the correct name for survey ([#74](https://github.com/ovh-ux/ng-ovh-telecom-universe-components/issues/74)) ([7d85373](https://github.com/ovh-ux/ng-ovh-telecom-universe-components/commit/7d85373))
+
+
+
 ## [2.0.3](https://github.com/ovh-ux/ng-ovh-telecom-universe-components/compare/v2.0.2...v2.0.3) (2019-03-01)
 
 
