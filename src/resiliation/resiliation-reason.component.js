@@ -49,7 +49,7 @@ export default {
       self.panel = false;
       self.onChange({
         ELEMENT: self.tucResiliationReason,
-        SURVEY: self.tucResiliationReasonModel,
+        SURVEY: self.resiliationReasonModel,
         ACCEPT: true,
       });
     };
