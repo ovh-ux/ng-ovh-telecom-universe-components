@@ -1,6 +1,6 @@
 import angular from 'angular';
 
-import 'ovh-angular-swimming-poll';
+import '@ovh-ux/ng-ovh-swimming-poll';
 
 import tucVoipServiceTask from './telecom-telephony-service-task.service';
 
@@ -8,7 +8,7 @@ const moduleName = 'tucTelecomTelephonyService';
 
 angular
   .module(moduleName, [
-    'ovh-angular-swimming-poll',
+    'ngOvhSwimmingPoll',
   ])
   .service('tucVoipServiceTask', tucVoipServiceTask);
 
