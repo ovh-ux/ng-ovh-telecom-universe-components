@@ -1,5 +1,5 @@
 import angular from 'angular';
-import 'ovh-angular-swimming-poll';
+import '@ovh-ux/ng-ovh-swimming-poll';
 import 'ovh-api-services';
 
 import TucPackMediator from './pack-mediator.service';
@@ -10,7 +10,7 @@ const moduleName = 'tucTelecomPack';
 
 angular
   .module(moduleName, [
-    'ovh-angular-swimming-poll',
+    'ngOvhSwimmingPoll',
     'ovh-api-services',
   ])
   .service('TucPackMediator', TucPackMediator)
