@@ -1,3 +1,17 @@
+# [3.0.0](https://github.com/ovh-ux/ng-ovh-telecom-universe-components/compare/v2.0.4...v3.0.0) (2019-03-12)
+
+
+### Build System
+
+* **peerdeps:** upgrade ng-ovh-swimming-poll to v4.0.0 ([#82](https://github.com/ovh-ux/ng-ovh-telecom-universe-components/issues/82)) ([c13aa3a](https://github.com/ovh-ux/ng-ovh-telecom-universe-components/commit/c13aa3a))
+
+
+### BREAKING CHANGES
+
+* **peerdeps:** replace `ovh-angular-swimming-poll` by `@ovh-ux/ng-ovh-swimming-poll`
+
+
+
 ## [2.0.4](https://github.com/ovh-ux/ng-ovh-telecom-universe-components/compare/v2.0.3...v2.0.4) (2019-03-04)
 
 
