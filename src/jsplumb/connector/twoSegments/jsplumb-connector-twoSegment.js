@@ -405,7 +405,7 @@ export default (jsPlumb, jsPlumbUtil) => {
   };
 
   jsPlumbUtil.extend(TucTwoSegments, jsPlumb.Connectors.AbstractConnector);
-  jsPlumb.registerConnectorType(TucTwoSegments, 'TucTwoSegments');
+  jsPlumb.Connectors['TucTwoSegments'] = TucTwoSegments;
 
 }
 /* eslint-enable */
