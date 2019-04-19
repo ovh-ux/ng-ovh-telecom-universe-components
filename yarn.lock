@@ -785,6 +785,17 @@
     rollup-pluginutils "^2.3.3"
     slash "^2.0.0"
 
+"@ovh-ux/ng-ovh-mondial-relay@^5.0.0":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@ovh-ux/ng-ovh-mondial-relay/-/ng-ovh-mondial-relay-5.0.0.tgz#83e1e35883e5486f076b3730ac3c6459d761e35d"
+  integrity sha512-lhYs/R9TZ6dqIo61vGkPo1WgjQenLg0Cr9FTRuPqQorzNA7GVRAh/kMVkq8xhwgyRFHmrslqWFybbx/5CcoKdg==
+  dependencies:
+    bootstrap "~3.3.7"
+    leaflet "0.7.x"
+    lodash "^4.17.11"
+    ovh-ui-kit "^2.23.1"
+    ovh-ui-kit-bs "^2.1.1"
+
 "@samverschueren/stream-to-observable@^0.3.0":
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/@samverschueren/stream-to-observable/-/stream-to-observable-0.3.0.tgz#ecdf48d532c58ea477acfcab80348424f8d0662f"
@@ -1199,7 +1210,7 @@ boom@2.x.x:
   dependencies:
     hoek "2.x.x"
 
-bootstrap@^3.3.7:
+bootstrap@^3.3.7, bootstrap@~3.3.7:
   version "3.3.7"
   resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-3.3.7.tgz#5a389394549f23330875a3b150656574f8a9eb71"
   integrity sha1-WjiTlFSfIzMIdaOxUGVldPip63E=
@@ -3951,6 +3962,11 @@ lcid@^1.0.0:
   dependencies:
     invert-kv "^1.0.0"
 
+leaflet@0.7.x:
+  version "0.7.7"
+  resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-0.7.7.tgz#1e352ba54e63d076451fa363c900890cb2cf75ee"
+  integrity sha1-HjUrpU5j0HZFH6NjyQCJDLLPde4=
+
 less-plugin-remcalc@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/less-plugin-remcalc/-/less-plugin-remcalc-0.1.0.tgz#34bce158cd24d2a14efa8984e01b2b9d0420d4cc"
@@ -4951,10 +4967,22 @@ osenv@0, osenv@^0.1.4:
     os-homedir "^1.0.0"
     os-tmpdir "^1.0.0"
 
+ovh-ui-kit-bs@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/ovh-ui-kit-bs/-/ovh-ui-kit-bs-2.1.1.tgz#bf9c5b035041797091b1a4c50f759bef7501dcef"
+  integrity sha512-gjWYjnGmS75nrEpYoYIvJ/wh7K8zzm4k5x2+mICOCmEOKbU7iWy642iXxvDI1TYR+61TDTRjtshnXsGVtUtu7g==
+
 ovh-ui-kit@^2.22.0:
   version "2.22.1"
   resolved "https://registry.yarnpkg.com/ovh-ui-kit/-/ovh-ui-kit-2.22.1.tgz#ee439bf2a281239336a5cd7b872d0a753335e19f"
   integrity sha512-XwWqBtkXcVT7YxtA8OxNlld8r7cqGSIiypAqg6zj6oQvlmlOczNEPGj8KMAivHZELMRs/wZV13Iw0kj+iOZ6zw==
+  dependencies:
+    less-plugin-remcalc "^0.1.0"
+
+ovh-ui-kit@^2.23.1:
+  version "2.29.1"
+  resolved "https://registry.yarnpkg.com/ovh-ui-kit/-/ovh-ui-kit-2.29.1.tgz#63e4fa2b769d98d9c20282a4f60d01eccc5282f2"
+  integrity sha512-hdC9cdKju6iNOLCbRMK9dsU9efm1VVUKcE1o3SqxK61WiGl0KfJW2pHYenAGTHZ2ohHY2XE3Nak8i2QOeGIgeA==
   dependencies:
     less-plugin-remcalc "^0.1.0"
 
