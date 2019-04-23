@@ -785,10 +785,10 @@
     rollup-pluginutils "^2.3.3"
     slash "^2.0.0"
 
-"@ovh-ux/ng-ovh-mondial-relay@^6.0.0":
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/@ovh-ux/ng-ovh-mondial-relay/-/ng-ovh-mondial-relay-6.0.0.tgz#e76369c23fa7385de509bfae4af759f4b008958c"
-  integrity sha512-y5KaebaqrxAYoQHG/Xs4jmzIsLRMKa1D6Q+ADJiAFjsNeFSMzJWTh1QUI5wJTfqnF1SuckQyXwG6LLW4Ust8Ow==
+"@ovh-ux/ng-ovh-mondial-relay@^6.0.1":
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/@ovh-ux/ng-ovh-mondial-relay/-/ng-ovh-mondial-relay-6.0.1.tgz#b75b9c2383d0f0329cbe18ba56c6e3e75648f378"
+  integrity sha512-TaAsgQ1mRZRWKtHeZd/l/4EaxFQf0R5KmAYrbF20O5inm1E/Kc6E8aaUcWK5UlUc1BOTydpC+/T2j22IaaNDCQ==
   dependencies:
     bootstrap "~3.3.7"
     leaflet "0.7.x"
