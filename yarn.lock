@@ -785,10 +785,10 @@
     rollup-pluginutils "^2.3.3"
     slash "^2.0.0"
 
-"@ovh-ux/ng-ovh-mondial-relay@^5.0.0":
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/@ovh-ux/ng-ovh-mondial-relay/-/ng-ovh-mondial-relay-5.0.0.tgz#83e1e35883e5486f076b3730ac3c6459d761e35d"
-  integrity sha512-lhYs/R9TZ6dqIo61vGkPo1WgjQenLg0Cr9FTRuPqQorzNA7GVRAh/kMVkq8xhwgyRFHmrslqWFybbx/5CcoKdg==
+"@ovh-ux/ng-ovh-mondial-relay@^6.0.0":
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/@ovh-ux/ng-ovh-mondial-relay/-/ng-ovh-mondial-relay-6.0.0.tgz#e76369c23fa7385de509bfae4af759f4b008958c"
+  integrity sha512-y5KaebaqrxAYoQHG/Xs4jmzIsLRMKa1D6Q+ADJiAFjsNeFSMzJWTh1QUI5wJTfqnF1SuckQyXwG6LLW4Ust8Ow==
   dependencies:
     bootstrap "~3.3.7"
     leaflet "0.7.x"
@@ -4980,9 +4980,9 @@ ovh-ui-kit@^2.22.0:
     less-plugin-remcalc "^0.1.0"
 
 ovh-ui-kit@^2.23.1:
-  version "2.29.1"
-  resolved "https://registry.yarnpkg.com/ovh-ui-kit/-/ovh-ui-kit-2.29.1.tgz#63e4fa2b769d98d9c20282a4f60d01eccc5282f2"
-  integrity sha512-hdC9cdKju6iNOLCbRMK9dsU9efm1VVUKcE1o3SqxK61WiGl0KfJW2pHYenAGTHZ2ohHY2XE3Nak8i2QOeGIgeA==
+  version "2.30.0"
+  resolved "https://registry.yarnpkg.com/ovh-ui-kit/-/ovh-ui-kit-2.30.0.tgz#2ef4c038f55e667b4d160c6184de2a7b5a287f7b"
+  integrity sha512-gn20E69mwHw2YPecJ4+UApOmvFcNlFLCC5BRadrq5EGMYgh8m1a4U4PwccC7++7JC6mh3KKsuy/faU+lSieYnQ==
   dependencies:
     less-plugin-remcalc "^0.1.0"
 
