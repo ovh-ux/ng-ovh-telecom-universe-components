@@ -1,3 +1,12 @@
+## [3.0.1](https://github.com/ovh-ux/ng-ovh-telecom-universe-components/compare/v3.0.0...v3.0.1) (2019-04-23)
+
+
+### Bug Fixes
+
+* **shipping.mode.selection:** use component instead of directive ([#86](https://github.com/ovh-ux/ng-ovh-telecom-universe-components/issues/86)) ([8c90b5d](https://github.com/ovh-ux/ng-ovh-telecom-universe-components/commit/8c90b5d))
+
+
+
 # [3.0.0](https://github.com/ovh-ux/ng-ovh-telecom-universe-components/compare/v2.0.4...v3.0.0) (2019-03-12)
 
 
