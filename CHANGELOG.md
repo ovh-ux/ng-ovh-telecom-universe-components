@@ -1,3 +1,12 @@
+## [3.0.2](https://github.com/ovh-ux/ng-ovh-telecom-universe-components/compare/v3.0.1...v3.0.2) (2019-04-23)
+
+
+### Bug Fixes
+
+* **deps:** upgrade @ovh-ux/ng-ovh-mondial-relay to v6.0.1 ([#90](https://github.com/ovh-ux/ng-ovh-telecom-universe-components/issues/90)) ([50255ca](https://github.com/ovh-ux/ng-ovh-telecom-universe-components/commit/50255ca))
+
+
+
 ## [3.0.1](https://github.com/ovh-ux/ng-ovh-telecom-universe-components/compare/v3.0.0...v3.0.1) (2019-04-23)
 
 
