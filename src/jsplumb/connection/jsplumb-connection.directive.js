@@ -30,7 +30,7 @@ export default () => ({
     iScope.$on('$destroy', () => {
       try {
         if (jsplumbCtrl.instance) {
-          jsplumbCtrl.instance.detach(connectionCtrl.connection);
+          jsplumbCtrl.instance.deleteConnection(connectionCtrl.connection);
           jsplumbCtrl.instance.customRepaint();
         }
       } finally {
