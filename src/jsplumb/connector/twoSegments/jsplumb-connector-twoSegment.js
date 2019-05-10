@@ -276,8 +276,6 @@ export default (jsPlumb, jsPlumbUtil) => {
          *                    vector are parallel
          */
     function twoSegments(paintInfo, instance) {
-      const radius = parameters.radius;
-
       const intersection = getIntersection({
         sx: paintInfo.sx,
         sy: paintInfo.sy,
@@ -296,7 +294,7 @@ export default (jsPlumb, jsPlumbUtil) => {
       const shift = getShift({
         so: paintInfo.so,
         to: paintInfo.to,
-      }, radius);
+      }, 0);
 
       // point to shorten the source line
       const stopS = shiftInside(intersection, {
@@ -309,16 +307,6 @@ export default (jsPlumb, jsPlumbUtil) => {
         x: paintInfo.tx,
         y: paintInfo.ty,
       }, shift);
-
-      // center of the arc
-      const center = getIntersection({
-        sx: stopS.x,
-        sy: stopS.y,
-        tx: stopT.x,
-        ty: stopT.y,
-        so: vectorRotation(paintInfo.so, Math.PI / 2),
-        to: vectorRotation(paintInfo.to, Math.PI / 2),
-      });
 
       // Draw source line
       _super.addSegment(instance, 'Straight', {
@@ -336,19 +324,6 @@ export default (jsPlumb, jsPlumbUtil) => {
         y2: paintInfo.ty,
       });
 
-      const angle = getAngle(paintInfo.so, vectorRotation(paintInfo.to, Math.PI));
-
-      // Draw arc
-      _super.addSegment(instance, 'Arc', {
-        r: radius,
-        x1: stopT.x,
-        y1: stopT.y,
-        x2: stopS.x,
-        y2: stopS.y,
-        cx: center.x,
-        cy: center.y,
-        ac: angle > 0,
-      });
       return true;
     }
 
@@ -405,7 +380,7 @@ export default (jsPlumb, jsPlumbUtil) => {
   };
 
   jsPlumbUtil.extend(TucTwoSegments, jsPlumb.Connectors.AbstractConnector);
-  jsPlumb.registerConnectorType(TucTwoSegments, 'TucTwoSegments');
+  jsPlumb.Connectors.TucTwoSegments = TucTwoSegments;
 
 }
 /* eslint-enable */
