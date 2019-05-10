@@ -1,3 +1,13 @@
+## [3.0.3](https://github.com/ovh-ux/ng-ovh-telecom-universe-components/compare/v3.0.2...v3.0.3) (2019-05-10)
+
+
+### Bug Fixes
+
+* bump peer dep and replace deprecated method ([#93](https://github.com/ovh-ux/ng-ovh-telecom-universe-components/issues/93)) ([aca7af7](https://github.com/ovh-ux/ng-ovh-telecom-universe-components/commit/aca7af7))
+* **i18n:** retrieve translations ([#95](https://github.com/ovh-ux/ng-ovh-telecom-universe-components/issues/95)) ([f82fa6e](https://github.com/ovh-ux/ng-ovh-telecom-universe-components/commit/f82fa6e))
+
+
+
 ## [3.0.2](https://github.com/ovh-ux/ng-ovh-telecom-universe-components/compare/v3.0.1...v3.0.2) (2019-04-23)
 
 
