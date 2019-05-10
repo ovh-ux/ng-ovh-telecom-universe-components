@@ -44,13 +44,13 @@
    <translation id="telephony_calls_filtering_type_incomingWhiteList" qtlid="359111">Appels entrants - Liste blanche</translation>
    <translation id="telephony_calls_filtering_type_outgoingWhiteList" qtlid="359124">Appels sortants - Liste blanche</translation>
    <translation id="telephony_calls_filtering_nature" qtlid="93283">Type de numéro</translation>
-   <translation id="telephony_calls_filtering_apply" qtlid="41326">Appliquer</translation>
+   <translation id="telephony_calls_filtering_apply" qtlid="41326">Aplicar</translation>
    <translation id="telephony_calls_filtering_number" qtlid="30778">Número</translation>
    <translation id="telephony_calls_filtering_number_info" qtlid="358838">Vous avez la possibilité de saisir tout ou partie du numéro. (Exemple : +33123455678 le numéro complet ; +3312345 les numéros commençant par ces chiffres)</translation>
    <translation id="telephony_calls_filtering_number_international" qtlid="358851">Au format international</translation>
    <translation id="telephony_calls_filtering_add_already_exist" qtlid="358760">Ce filtre est déjà présent dans la liste.</translation>
    <translation id="telephony_calls_filtering_add" qtlid="37923">Añadir</translation>
    <translation id="telephony_calls_filtering_cancel" qtlid="37863">Cancelar</translation>
-   <translation id="telephony_calls_filtering_pagination_display" qtlid="69353">Afficher</translation>
+   <translation id="telephony_calls_filtering_pagination_display" qtlid="69353">Ver</translation>
    <translation id="telephony_calls_filtering_pagination_page" qtlid="239246">Página {{currentPage}}/{{nbPages}}</translation>
 </translations>
