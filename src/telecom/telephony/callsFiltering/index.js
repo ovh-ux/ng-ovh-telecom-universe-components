@@ -2,6 +2,7 @@ import angular from 'angular';
 import translate from 'angular-translate';
 import uiRouter from '@uirouter/angularjs';
 
+import '@ovh-ux/ng-ovh-checkbox-table';
 import '@ovh-ux/ng-translate-async-loader';
 
 import tucCsvParser from '../../../csv-parser';
@@ -23,6 +24,7 @@ const moduleName = 'tucTelecomTelephonyCallsFiltering';
 angular
   .module(moduleName, [
     'ngCsv',
+    'ngOvhCheckboxTable',
     'ngTranslateAsyncLoader',
     'oui',
     translate,
