@@ -785,6 +785,13 @@
     rollup-pluginutils "^2.3.3"
     slash "^2.0.0"
 
+"@ovh-ux/ng-ovh-checkbox-table@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@ovh-ux/ng-ovh-checkbox-table/-/ng-ovh-checkbox-table-1.0.0.tgz#0a431f47fbde05dd48ed8fe38693a4a76079af5d"
+  integrity sha512-3DWHTCsKJROCwPzOCchWSf65AyKxQHsqVw2sdifym5MMsHgbwmGSBUyGrxOlWzilKjaUffh9NlQPTDXuv+hGHA==
+  dependencies:
+    lodash "^4.17.11"
+
 "@samverschueren/stream-to-observable@^0.3.0":
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/@samverschueren/stream-to-observable/-/stream-to-observable-0.3.0.tgz#ecdf48d532c58ea477acfcab80348424f8d0662f"
