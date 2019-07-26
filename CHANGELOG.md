@@ -1,3 +1,12 @@
+## [3.0.6](https://github.com/ovh-ux/ng-ovh-telecom-universe-components/compare/v3.0.5...v3.0.6) (2019-07-26)
+
+
+### Bug Fixes
+
+* **validator:** bump to version 11 ([#112](https://github.com/ovh-ux/ng-ovh-telecom-universe-components/issues/112)) ([04f5704](https://github.com/ovh-ux/ng-ovh-telecom-universe-components/commit/04f5704)), closes [validatorjs/validator.js#525](https://github.com/validatorjs/validator.js/issues/525)
+
+
+
 ## [3.0.5](https://github.com/ovh-ux/ng-ovh-telecom-universe-components/compare/v3.0.4...v3.0.5) (2019-07-16)
 
 
