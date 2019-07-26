@@ -56,7 +56,7 @@ export default class {
 
         // ensure that billingAccount option is setted
         _.set(res.value, 'billingAccount', billingAccount);
-        return this._constructService(res.value); // eslint-disable-line
+        return this.constructService(res.value); // eslint-disable-line
       }).value());
   }
 
@@ -81,7 +81,7 @@ export default class {
     }).$promise.then((result) => {
       // ensure billingAccount is setted
       _.set(result, 'billingAccount', billingAccount);
-      return this._constructService(result); // eslint-disable-line
+      return this.constructService(result); // eslint-disable-line
     });
   }
 
@@ -350,7 +350,7 @@ export default class {
    *                           (see TucVoipService constructor for more details).
    *  @return {TucVoipService}    The good instance type of TucVoipService.
    */
-  _constructService(options) {
+  constructService(options) {
     switch (options.serviceType) {
       case 'alias':
         return new this.TucVoipServiceAlias(options);
