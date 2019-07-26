@@ -9,7 +9,7 @@ angular
   .module(moduleName, [])
   .constant('tucValidator', validator)
   .run((tucValidator) => {
-    const Rio = function (rioStr) {
+    const Rio = function Rio(rioStr) {
       if (!/[A-Z0-9+]{12}/i.test(rioStr)) {
         return;
       }
@@ -22,6 +22,7 @@ angular
       this.control = rioUp.substr(9, 3);
       this.rio = rioUp;
     };
+    const customValidator = tucValidator;
 
     function checkRioSum(str, control) {
       const order = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+';
@@ -37,7 +38,7 @@ angular
       return (order[a] + order[b] + order[c]) === control;
     }
 
-    Rio.prototype.check = function (phoneNumber) {
+    Rio.prototype.check = function check(phoneNumber) {
       const tel = (phoneNumber || '').replace(/[^0-9]/g, '');
       const rioValid = checkRioSum(
         this.provider + this.contractType + this.customer + tel,
@@ -52,20 +53,20 @@ angular
      * @param {String} rio          RIO code
      * @param {String} phoneNumber  Corresponding phone number
      */
-    tucValidator.extend('tucIsRio', (rio, phoneNumber) => (new Rio(rio)).check(phoneNumber));
+    customValidator.tucIsRio = (rio, phoneNumber) => (new Rio(rio)).check(phoneNumber);
 
     /**
      * Validate a Standard insee
      * @param {Object} obj          Object containing in
      */
-    tucValidator.extend('tucHasInseeCode', obj => _.isObject(obj) && !!obj.inseeCode);
+    customValidator.tucHasInseeCode = obj => _.isObject(obj) && !!obj.inseeCode;
 
     /**
      * Validate a zipcode
      * @param {String} zipcode Zip code to validate
      * @param  {Array} filter  scope of the zip code
      */
-    tucValidator.extend('tucIsZipcode', (zipcode, filter) => {
+    customValidator.tucIsZipcode = (zipcode, filter) => {
       const check = {
         frenchOverseas: /^9[78]\d{3}$/.test(zipcode),
         metropolitanFrance: /^\d{5}$/.test(zipcode) && (zipcode >= 1000) && (zipcode < 96000),
@@ -81,29 +82,29 @@ angular
       };
       const theFilter = filter || Object.keys(check);
       return theFilter.reduce((all, thisTest) => all || check[thisTest], false);
-    });
+    };
 
     /**
      *  Validate an IPv4Block or IPv6Block
      *  @param {String} str     IP representation string
      *  @param {Number} version IP version
      */
-    tucValidator.extend('tucIsIPBlock', (str, version) => {
+    customValidator.tucIsIPBlock = (str, version) => {
       if (version === 4 || version === 6) {
         const split = str.split('/');
-        return split.length === 2 && tucValidator.isIP(split[0], version)
+        return split.length === 2 && customValidator.isIP(split[0], version)
           && parseInt(split[1], 10) > 0 && parseInt(split[1], 10) <= (version === 4 ? 32 : 128);
       }
-      return tucValidator.tucIsIPBlock(str, 4) || tucValidator.tucIsIPBlock(str, 6);
-    });
+      return customValidator.tucIsIPBlock(str, 4) || customValidator.tucIsIPBlock(str, 6);
+    };
 
     /**
      *  Validate a private IP range (according to RFC 1918)
      *  @param {String} str     IP representation string
      *  @return {Boolean}
      */
-    tucValidator.extend('tucIsPrivateIPv4', (str) => {
-      if (tucValidator.isIP(str, 4)) {
+    customValidator.tucIsPrivateIPv4 = (str) => {
+      if (customValidator.isIP(str, 4)) {
         const ipBlock = str.split('.');
         const bitBlock = parseInt(ipBlock[0], 10);
         const secondBitBlock = parseInt(ipBlock[1], 10);
@@ -118,13 +119,13 @@ angular
       }
 
       return false;
-    });
+    };
 
     /**
      *  Validate a siret code
      *  @param {String} siret SIRET code
      */
-    tucValidator.extend('tucIsSiret', (siret) => {
+    customValidator.tucIsSiret = (siret) => {
       if (_.isEmpty(siret)) {
         return true;
       }
@@ -135,16 +136,16 @@ angular
         0,
       );
       return luhnSum % 10 === 0;
-    });
+    };
 
-    tucValidator.extend('tucIsFrenchLandLine', phone => /^0[1-5]([\\s\\-]?([0-9]){2}){4}$/.test(phone));
+    customValidator.tucIsFrenchLandLine = phone => /^0[1-5]([\\s\\-]?([0-9]){2}){4}$/.test(phone);
 
-    tucValidator.extend('tucIsFrenchPhoneNumber', phone => /^(0033|\+33\s?(\(0\))?|0)[^08](\s*\d{2}){4}$/.test(phone));
+    customValidator.tucIsFrenchPhoneNumber = phone => /^(0033|\+33\s?(\(0\))?|0)[^08](\s*\d{2}){4}$/.test(phone);
 
-    tucValidator.extend('tucIsMacAddress', (val) => {
+    customValidator.tucIsMacAddress = (val) => {
       const values = val.split(/:/);
       return values.length === 6 && _.reduce(values, (result, elt) => /^[0-9a-f]{2}$/i.test(elt) && result, true);
-    });
+    };
 
     /**
      * Check if a domain is valid
@@ -156,7 +157,7 @@ angular
                                                           *.foo.bar.example.com
      * @return {Boolean}
      */
-    tucValidator.extend('tucIsValidDomain', (domain, options) => {
+    customValidator.tucIsValidDomain = (domain, options) => {
       const theOptions = options || {};
       let inError = false;
 
@@ -186,7 +187,7 @@ angular
         }
 
         // Check if it's not an IP
-        if (!inError && tucValidator.isIP(domain)) {
+        if (!inError && customValidator.isIP(domain)) {
           inError = true;
         }
 
@@ -196,7 +197,7 @@ angular
         }
       }
       return !inError;
-    });
+    };
   });
 
 export default moduleName;
