@@ -73,6 +73,6 @@
     "ovh-ngstrap": "^4.0.2",
     "ovh-ui-angular": "^2.22.0",
     "punycode": "^1.2.4",
-    "validator-js": "chriso/validator.js#3.40.1"
+    "validator": "^11.1.0"
   }
 }
