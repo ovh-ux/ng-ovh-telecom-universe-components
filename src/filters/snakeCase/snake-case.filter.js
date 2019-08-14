@@ -1,5 +1,5 @@
-import _ from 'lodash';
+import snakeCase from 'lodash/snakeCase';
 
 export default () => function (text) {
-  return _.snakeCase(text);
+  return snakeCase(text);
 };

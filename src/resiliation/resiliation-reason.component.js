@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import find from 'lodash/find';
 
 import template from './resiliation-reason.component.html';
 import templateConfirmation from './resiliation.modal.html';
@@ -37,7 +37,7 @@ export default {
 
     this.canResiliate = function () {
       if (self.resiliationReasonModel) {
-        const model = _.find(self.resiliationChoices, {
+        const model = find(self.resiliationChoices, {
           name: self.resiliationReasonModel.type,
         });
         return (model.needComment && self.resiliationReasonModel.comment) || !model.needComment;

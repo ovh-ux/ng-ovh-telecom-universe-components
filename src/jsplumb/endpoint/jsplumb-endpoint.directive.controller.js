@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import uniqueId from 'lodash/uniqueId';
 
 export default function () {
   const self = this;
@@ -11,7 +11,7 @@ export default function () {
 
   self.$onInit = function () {
     if (!self.uuid) {
-      self.uuid = _.uniqueId('endpoint_');
+      self.uuid = uniqueId('endpoint_');
     }
   };
 

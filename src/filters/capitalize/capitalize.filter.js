@@ -1,3 +1,3 @@
-import _ from 'lodash';
+import capitalize from 'lodash/capitalize';
 
-export default () => _.capitalize;
+export default () => capitalize;

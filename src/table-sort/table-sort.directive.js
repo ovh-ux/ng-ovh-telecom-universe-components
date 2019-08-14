@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import set from 'lodash/set';
 
 export default () => ({
   restrict: 'A',
@@ -6,10 +6,10 @@ export default () => ({
     tucTableSort: '&',
   },
   link(scope) {
-    _.set(scope, '$parent.sort', {
+    set(scope, '$parent.sort', {
       fieldName: null,
       descending: null,
     });
-    _.set(scope, '$parent.tucTableSort', scope.tucTableSort);
+    set(scope, '$parent.tucTableSort', scope.tucTableSort);
   },
 });

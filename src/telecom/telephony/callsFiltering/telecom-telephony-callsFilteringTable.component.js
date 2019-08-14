@@ -1,5 +1,10 @@
 import angular from 'angular';
-import _ from 'lodash';
+import assign from 'lodash/assign';
+import forEach from 'lodash/forEach';
+import filter from 'lodash/filter';
+import find from 'lodash/find';
+import map from 'lodash/map';
+import pick from 'lodash/pick';
 
 import template from './telecom-telephony-callsFilteringTable.html';
 
@@ -78,21 +83,21 @@ export default /* @ngInject */ {
     };
 
     self.getSelection = function getSelection() {
-      return _.filter(self.screenLists.raw, screen => screen && screen.status !== 'delete' && self.screenLists.selected && self.screenLists.selected[screen.id]);
+      return filter(self.screenLists.raw, screen => screen && screen.status !== 'delete' && self.screenLists.selected && self.screenLists.selected[screen.id]);
     };
 
     self.exportSelection = function exportSelection() {
-      return _.map(self.getSelection(), filter => _.pick(filter, ['callNumber', 'nature', 'type']));
+      return map(self.getSelection(), selection => pick(selection, ['callNumber', 'nature', 'type']));
     };
 
     self.updateScreenList = function updateScreenList() {
       return self.api.fetchAll().then((result) => {
         if (result.length === self.screenLists.raw.length) {
           // update
-          _.each(result, (screen) => {
-            const toUpdate = _.find(self.screenLists.raw, { id: screen.id });
+          forEach(result, (screen) => {
+            const toUpdate = find(self.screenLists.raw, { id: screen.id });
             if (toUpdate) {
-              _.assign(toUpdate, screen);
+              assign(toUpdate, screen);
             } else {
               self.screenLists.raw.push(screen);
             }
@@ -101,7 +106,7 @@ export default /* @ngInject */ {
           self.screenLists.raw = result;
         }
         self.sortScreenLists();
-        self.screenLists.isTaskInProgress = _.filter(self.screenLists.raw, { status: 'active' }).length !== self.screenLists.raw.length;
+        self.screenLists.isTaskInProgress = filter(self.screenLists.raw, { status: 'active' }).length !== self.screenLists.raw.length;
       });
     };
 

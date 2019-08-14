@@ -37,6 +37,7 @@
   },
   "dependencies": {
     "bootstrap": "^3.4.1",
+    "lodash": "^4.17.15",
     "ovh-ui-kit": "^2.33.4"
   },
   "devDependencies": {
@@ -70,7 +71,6 @@
     "ip-address": "^5.8.0",
     "jquery": "~2.1.3",
     "jsplumb": "~2.9.0",
-    "lodash": "^3.10.1",
     "moment": "^2.15.2",
     "ng-csv": "^0.3.6",
     "ovh-api-services": "^3.23.1",

@@ -1,6 +1,7 @@
 import angular from 'angular';
 import $ from 'jquery';
-import _ from 'lodash';
+import debounce from 'lodash/debounce';
+import set from 'lodash/set';
 
 export default /* @ngInject */ TUC_JS_PLUMB => ({
   restrict: 'A',
@@ -14,7 +15,7 @@ export default /* @ngInject */ TUC_JS_PLUMB => ({
     pre(iScope, iElement, iAttrs, $ctrl) {
       // create a jsplumb instance with given options and with directive element as container
 
-      _.set($ctrl, 'instance', TUC_JS_PLUMB.getInstance(angular.extend($ctrl.options || {}, {
+      set($ctrl, 'instance', TUC_JS_PLUMB.getInstance(angular.extend($ctrl.options || {}, {
         Container: iElement,
       })));
 
@@ -22,10 +23,10 @@ export default /* @ngInject */ TUC_JS_PLUMB => ({
       $ctrl.instance.setSuspendDrawing(true);
 
       // set a custom redraw method for jsplumb instance
-      _.set($ctrl, 'instance.customRepaint', $ctrl.askForRepaint);
+      set($ctrl, 'instance.customRepaint', $ctrl.askForRepaint);
 
       // handle window resize
-      const onResizePage = _.debounce(() => {
+      const onResizePage = debounce(() => {
         if ($ctrl.instance) {
           $ctrl.instance.customRepaint();
         }
@@ -49,7 +50,7 @@ export default /* @ngInject */ TUC_JS_PLUMB => ({
           windowElt.off('resize', onResizePage);
           $ctrl.instance.reset();
         }
-        _.set($ctrl, 'instance', null);
+        set($ctrl, 'instance', null);
       });
     },
   },

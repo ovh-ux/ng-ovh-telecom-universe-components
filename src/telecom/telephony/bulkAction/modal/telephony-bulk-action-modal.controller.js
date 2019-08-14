@@ -1,4 +1,17 @@
-import _ from 'lodash';
+import bind from 'lodash/bind';
+import filter from 'lodash/filter';
+import find from 'lodash/find';
+import flatten from 'lodash/flatten';
+import forEach from 'lodash/forEach';
+import get from 'lodash/get';
+import head from 'lodash/head';
+import isFunction from 'lodash/isFunction';
+import keys from 'lodash/keys';
+import last from 'lodash/last';
+import map from 'lodash/map';
+import partition from 'lodash/partition';
+import set from 'lodash/set';
+import sortBy from 'lodash/sortBy';
 
 export default /* @ngInject */ function (
   $http,
@@ -40,7 +53,7 @@ export default /* @ngInject */ function (
     if (!self.model.billingAccount) {
       services = allServices;
     } else {
-      services = _.filter(allServices, {
+      services = filter(allServices, {
         billingAccount: self.model.billingAccount,
       });
     }
@@ -55,23 +68,23 @@ export default /* @ngInject */ function (
     return services;
   }
 
-  self.getSelectedCount = function () {
+  self.getSelectedCount = function getSelectedCount() {
     let count = 0;
 
-    _.keys(self.model.selection).forEach((serviceName) => {
-      count += _.get(self.model.selection, serviceName) === true ? 1 : 0;
+    keys(self.model.selection).forEach((serviceName) => {
+      count += get(self.model.selection, serviceName) === true ? 1 : 0;
     });
 
     return count;
   };
 
-  self.getSelectedServices = function () {
+  self.getSelectedServices = function getSelectedServices() {
     const selectedServices = [];
 
-    _.keys(self.model.selection).forEach((serviceName) => {
+    keys(self.model.selection).forEach((serviceName) => {
       if (self.model.selection[serviceName] === true && self.bindings.serviceName !== serviceName) {
         selectedServices.push({
-          billingAccount: _.find(allServices, {
+          billingAccount: find(allServices, {
             serviceName,
           }).billingAccount,
           serviceName,
@@ -85,10 +98,10 @@ export default /* @ngInject */ function (
   /*
      * Highlight services on which a previous succesful bulk action had been made
      */
-  self.highlightUpdatedServices = function (services) {
-    _.forEach(services, (service) => {
-      _.forEach(self.billingAccounts, (billingAccount) => {
-        const findService = _.find(billingAccount.services, 'serviceName', service.serviceName);
+  self.highlightUpdatedServices = function highlightUpdatedServices(services) {
+    forEach(services, (service) => {
+      forEach(self.billingAccounts, (billingAccount) => {
+        const findService = find(billingAccount.services, bind('serviceName', service.serviceName));
         if (findService) {
           findService.hasUpdate = true;
         }
@@ -103,36 +116,36 @@ export default /* @ngInject */ function (
     =            EVENTS            =
     ============================== */
 
-  self.cancel = function (reason) {
+  self.cancel = function cancel(reason) {
     return $uibModalInstance.dismiss(reason);
   };
 
-  self.onBillingAccountSelectChange = function () {
+  self.onBillingAccountSelectChange = function onBillingAccountSelectChange() {
     self.state.selectAll = false;
     self.serviceList = getFilteredServiceList();
   };
 
-  self.onToggleAllCheckStateBtnClick = function () {
+  self.onToggleAllCheckStateBtnClick = function onToggleAllCheckStateBtnClick() {
     self.state.selectAll = !self.state.selectAll;
     self.serviceList.forEach((service) => {
       if (service.serviceName !== self.bindings.serviceName) {
-        _.set(self.model.selection, service.serviceName, self.state.selectAll);
+        set(self.model.selection, service.serviceName, self.state.selectAll);
       }
     });
   };
 
-  self.onSearchServiceInputChange = function () {
+  self.onSearchServiceInputChange = function onSearchServiceInputChange() {
     self.state.selectAll = false;
     self.serviceList = getFilteredServiceList();
   };
 
-  self.onBulkServiceChoiceFormSubmit = function () {
+  self.onBulkServiceChoiceFormSubmit = function onBulkServiceChoiceFormSubmit() {
     self.loading.bulk = true;
 
     // build params for each actions
-    if (self.bindings.getBulkParams && _.isFunction(self.bindings.getBulkParams())) {
+    if (self.bindings.getBulkParams && isFunction(self.bindings.getBulkParams())) {
       self.bindings.bulkInfos.actions.forEach((info) => {
-        _.set(info, 'params', self.bindings.getBulkParams()(info.name));
+        set(info, 'params', self.bindings.getBulkParams()(info.name));
       });
     }
 
@@ -143,11 +156,11 @@ export default /* @ngInject */ function (
     }, {
       serviceType: 'aapi',
     }).then((result) => {
-      const partitionedResult = _.partition(result.data, res => res.errors.length === 0);
+      const partitionedResult = partition(result.data, res => res.errors.length === 0);
 
       return $uibModalInstance.close({
-        success: _.first(partitionedResult),
-        error: _.last(partitionedResult),
+        success: head(partitionedResult),
+        error: last(partitionedResult),
       });
     }).catch(error => self.cancel({
       type: 'API',
@@ -168,32 +181,39 @@ export default /* @ngInject */ function (
     self.serviceList = getFilteredServiceList();
 
     // set current serviceName as selected
-    _.set(self.model.selection, self.bindings.serviceName, true);
+    set(self.model.selection, self.bindings.serviceName, true);
 
     if (self.bindings.previouslyUpdatedServices.length > 0) {
       self.highlightUpdatedServices(self.bindings.previouslyUpdatedServices);
     }
   }
 
-  self.$onInit = function () {
+  self.$onInit = function onInit() {
     self.loading.init = true;
 
     self.bindings = modalBindings;
     self.model.billingAccount = self.bindings.billingAccount;
 
     return tucTelecomVoip.fetchAll(false).then((billingAccounts) => {
-      self.billingAccounts = _.sortBy(
+      self.billingAccounts = sortBy(
         billingAccounts,
         billingAccount => billingAccount.getDisplayedName(),
       );
 
       // get all services of each billingAccounts and apply a first filter based on serviceType
-      allServices = _.chain(self.billingAccounts).map('services').flatten().filter(service => self.bindings.serviceType === 'all' || service.serviceType === self.bindings.serviceType)
-        .value();
+      allServices = filter(
+        flatten(
+          map(
+            self.billingAccounts,
+            'services',
+          ),
+        ),
+        service => self.bindings.serviceType === 'all' || service.serviceType === self.bindings.serviceType,
+      );
 
-      if (self.bindings.filterServices && _.isFunction(self.bindings.filterServices())) {
+      if (self.bindings.filterServices && isFunction(self.bindings.filterServices())) {
         allServices = self.bindings.filterServices()(allServices);
-        const filterPromise = _.isFunction(allServices.then) ? allServices : $q.when(allServices);
+        const filterPromise = isFunction(allServices.then) ? allServices : $q.when(allServices);
 
         filterPromise.then((filteredServices) => {
           allServices = filteredServices;

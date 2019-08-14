@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import set from 'lodash/set';
 import moment from 'moment';
 
 /**
@@ -29,7 +29,7 @@ export default /* @ngInject */ (
   template: "<span data-ng-bind='value'></span>",
   link(scope) {
     let isLoading = true;
-    _.set(scope, 'value', '');
+    set(scope, 'value', '');
 
     function refresh(delta) {
       if (!isLoading) {
@@ -43,23 +43,23 @@ export default /* @ngInject */ (
           - (minutes * 60);
 
         if (days > 0) {
-          _.set(scope, 'value', $translate.instant('elapsed_time_days', {
+          set(scope, 'value', $translate.instant('elapsed_time_days', {
             days,
             hours,
           }));
         } else if (hours > 0) {
-          _.set(scope, 'value', $translate.instant('elapsed_time_hours', {
+          set(scope, 'value', $translate.instant('elapsed_time_hours', {
             hours,
             minutes,
             seconds,
           }));
         } else if (minutes > 0) {
-          _.set(scope, 'value', $translate.instant('elapsed_time_minutes', {
+          set(scope, 'value', $translate.instant('elapsed_time_minutes', {
             minutes,
             seconds,
           }));
         } else {
-          _.set(scope, 'value', $translate.instant('elapsed_time_seconds', {
+          set(scope, 'value', $translate.instant('elapsed_time_seconds', {
             seconds,
           }));
         }

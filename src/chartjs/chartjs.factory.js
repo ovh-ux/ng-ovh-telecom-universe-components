@@ -1,9 +1,13 @@
-import _ from 'lodash';
+import assignIn from 'lodash/assignIn';
+import head from 'lodash/head';
+import isUndefined from 'lodash/isUndefined';
+import last from 'lodash/last';
+import merge from 'lodash/merge';
 import angular from 'angular';
 
 export default /* @ngInject */ (TUC_CHARTS) => {
   const ChartjsFactory = function ChartjsFactory(data) {
-    _.extend(this, angular.copy(TUC_CHARTS.squeleton), data);
+    assignIn(this, angular.copy(TUC_CHARTS.squeleton), data);
   };
 
   /**
@@ -16,7 +20,7 @@ export default /* @ngInject */ (TUC_CHARTS) => {
    */
   ChartjsFactory.prototype.addSerie = function addSerie(name, data, opts) {
     const options = opts || {};
-    this.data.datasets.push(_.extend(
+    this.data.datasets.push(assignIn(
       {
         label: name,
         data,
@@ -24,7 +28,7 @@ export default /* @ngInject */ (TUC_CHARTS) => {
       TUC_CHARTS.colors[this.data.datasets.length % TUC_CHARTS.colors.length],
       options.dataset,
     ));
-    return _.last(this.data.datasets);
+    return last(this.data.datasets);
   };
 
   /**
@@ -49,12 +53,12 @@ export default /* @ngInject */ (TUC_CHARTS) => {
    * @param {Number|undefined} index Index of axis or all
    */
   ChartjsFactory.prototype.setAxisOptions = function setAxisOptions(axis, options, index) {
-    if (_.isUndefined(index)) {
+    if (isUndefined(index)) {
       this.options.scales[axis].forEach((data) => {
-        _.merge(data, options);
+        merge(data, options);
       });
     } else {
-      _.merge(this.options.scales[index], options);
+      merge(this.options.scales[index], options);
     }
   };
 
@@ -64,8 +68,8 @@ export default /* @ngInject */ (TUC_CHARTS) => {
    */
   ChartjsFactory.prototype.setYLabel = function setYLabel(label) {
     if (this.options.scales.yAxes.length
-      && _.first(this.options.scales.yAxes)
-      && _.first(this.options.scales.yAxes).scaleLabel) {
+      && head(this.options.scales.yAxes)
+      && head(this.options.scales.yAxes).scaleLabel) {
       this.options.scales.yAxes[0].scaleLabel.labelString = label;
     }
   };
