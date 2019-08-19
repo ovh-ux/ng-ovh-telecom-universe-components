@@ -1,5 +1,7 @@
 import angular from 'angular';
-import _ from 'lodash';
+import isEmpty from 'lodash/isEmpty';
+import isObject from 'lodash/isObject';
+import reduce from 'lodash/reduce';
 import punycode from 'punycode';
 import validator from 'validator-js';
 
@@ -59,7 +61,7 @@ angular
      * Validate a Standard insee
      * @param {Object} obj          Object containing in
      */
-    customValidator.tucHasInseeCode = obj => _.isObject(obj) && !!obj.inseeCode;
+    customValidator.tucHasInseeCode = obj => isObject(obj) && !!obj.inseeCode;
 
     /**
      * Validate a zipcode
@@ -126,7 +128,7 @@ angular
      *  @param {String} siret SIRET code
      */
     customValidator.tucIsSiret = (siret) => {
-      if (_.isEmpty(siret)) {
+      if (isEmpty(siret)) {
         return true;
       }
       const theSiret = `${/^\d{14}$/.test(siret) ? siret : '00000000000001'}`;
@@ -144,7 +146,7 @@ angular
 
     customValidator.tucIsMacAddress = (val) => {
       const values = val.split(/:/);
-      return values.length === 6 && _.reduce(values, (result, elt) => /^[0-9a-f]{2}$/i.test(elt) && result, true);
+      return values.length === 6 && reduce(values, (result, elt) => /^[0-9a-f]{2}$/i.test(elt) && result, true);
     };
 
     /**

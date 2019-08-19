@@ -1,5 +1,5 @@
 import angular from 'angular';
-import _ from 'lodash';
+import findIndex from 'lodash/findIndex';
 
 /**
  *  @ngdoc object
@@ -103,7 +103,7 @@ export default /* @ngInject */ (TucVoipService, tucVoipService) => {
       const addedService = service.constructor.name !== 'TucVoipService' ? service : new TucVoipService(service);
 
       // check if service is already added
-      const serviceIndex = _.findIndex(this.services, {
+      const serviceIndex = findIndex(this.services, {
         serviceName: addedService.serviceName,
       });
 

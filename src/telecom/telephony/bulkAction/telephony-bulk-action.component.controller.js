@@ -1,4 +1,6 @@
-import _ from 'lodash';
+import get from 'lodash/get';
+import isArray from 'lodash/isArray';
+import isFunction from 'lodash/isFunction';
 
 import templateModal from './modal/telephony-bulk-action-modal.html';
 
@@ -22,7 +24,7 @@ export default /* @ngInject */ function (
     ============================== */
 
   self.onBulkActionBtnClick = function () {
-    if (self.onOpen && _.isFunction(self.onOpen())) {
+    if (self.onOpen && isFunction(self.onOpen())) {
       self.onOpen()();
     }
 
@@ -43,16 +45,16 @@ export default /* @ngInject */ function (
       },
     })
       .result.then((data) => {
-        if (self.onSuccess && _.isFunction(self.onSuccess())) {
+        if (self.onSuccess && isFunction(self.onSuccess())) {
           self.onSuccess()(data);
         }
 
-        if (_.isArray(data.success)) {
+        if (isArray(data.success)) {
           tucTelephonyBulkActionUpdatedServicesContainer.storeUpdatedServices(data.success);
         }
       })
       .catch((error) => {
-        if (_.get(error, 'type') === 'API' && self.onError && _.isFunction(self.onError())) {
+        if (get(error, 'type') === 'API' && self.onError && isFunction(self.onError())) {
           self.onError()(error);
         }
         return $q.reject(error);

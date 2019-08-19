@@ -1,4 +1,6 @@
-import _ from 'lodash';
+import get from 'lodash/get';
+import isNull from 'lodash/isNull';
+import set from 'lodash/set';
 
 /**
  *  @ngdoc object
@@ -39,8 +41,8 @@ export default /* @ngInject */ (TucVoipFeature) => {
       this.notifications = featureOptions.notifications;
 
       // if notifications logs is not setted. Set it to defaults
-      if (_.isNull(_.get(this.notifications, 'logs'))) {
-        _.set(this.notifications, 'logs', {
+      if (isNull(get(this.notifications, 'logs'))) {
+        set(this.notifications, 'logs', {
           email: null,
           frequency: 'Never',
           sendIfNull: false,

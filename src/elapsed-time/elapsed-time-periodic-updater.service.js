@@ -1,4 +1,6 @@
-import _ from 'lodash';
+import forEach from 'lodash/forEach';
+import find from 'lodash/find';
+import pull from 'lodash/pull';
 import moment from 'moment';
 
 export default /* @ngInject */ ($timeout, $http, $q) => {
@@ -7,7 +9,7 @@ export default /* @ngInject */ ($timeout, $http, $q) => {
   let pendingDeltaTime = null;
 
   function refreshPeriodically(delta) {
-    _.each(toRefresh, (callback) => {
+    forEach(toRefresh, (callback) => {
       callback(delta);
     });
     if (toRefresh.length) {
@@ -19,7 +21,7 @@ export default /* @ngInject */ ($timeout, $http, $q) => {
 
   return {
     register(callback) {
-      if (!_.find(toRefresh, callback)) {
+      if (!find(toRefresh, callback)) {
         toRefresh.push(callback);
       }
       if (toRefresh.length === 1) {
@@ -29,7 +31,7 @@ export default /* @ngInject */ ($timeout, $http, $q) => {
       }
     },
     unregister(callback) {
-      _.pull(toRefresh, callback);
+      pull(toRefresh, callback);
     },
     getDeltaTime() {
       if (deltaTime !== null) {

@@ -1,5 +1,7 @@
 import angular from 'angular';
-import _ from 'lodash';
+import pick from 'lodash/pick';
+import set from 'lodash/set';
+import sortBy from 'lodash/sortBy';
 
 import template from './telecom-telephony-abbreviated-numbers.html';
 import templateAddOrUpdate from './telecom-telephony-abbreviated-numbers.modal.html';
@@ -73,7 +75,7 @@ export default {
       });
       addModalInstance.result.then((data) => {
         self.abbreviatedNumbers.push(data);
-        self.abbreviatedNumbers = _.sortBy(
+        self.abbreviatedNumbers = sortBy(
           self.abbreviatedNumbers,
           elt => parseInt(elt.abbreviatedNumber, 10),
         );
@@ -99,7 +101,7 @@ export default {
         },
       });
       importModalInstance.result.then((data) => {
-        self.abbreviatedNumbers = _.sortBy(
+        self.abbreviatedNumbers = sortBy(
           self.abbreviatedNumbers.concat(data),
           elt => parseInt(elt.abbreviatedNumber, 10),
         );
@@ -159,7 +161,7 @@ export default {
      * @param  {Object} abbreviatedNumber Abbreviated number to update
      */
     this.update = function (abbreviatedNumber) {
-      _.set(abbreviatedNumber, 'updating', true);
+      set(abbreviatedNumber, 'updating', true);
       const addModalInstance = $uibModal.open({
         animation: true,
         template: templateAddOrUpdate,
@@ -180,7 +182,7 @@ export default {
         },
       });
       addModalInstance.result.then((data) => {
-        angular.extend(abbreviatedNumber, _.pick(data, ['name', 'surname', 'destinationNumber']));
+        angular.extend(abbreviatedNumber, pick(data, ['name', 'surname', 'destinationNumber']));
       }).finally(() => {
         delete abbreviatedNumber.updating; // eslint-disable-line
       });

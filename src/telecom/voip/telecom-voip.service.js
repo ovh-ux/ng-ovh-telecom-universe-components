@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import filter from 'lodash/filter';
 
 /**
  *  @ngdoc overview
@@ -53,7 +53,7 @@ export default class {
     return this.tucVoipBillingAccount
       .fetchAll(withError)
       .then(billingAccounts => this.tucVoipService.fetchAll(withError).then((services) => {
-        billingAccounts.forEach(billingAccount => billingAccount.addServices(_.filter(services, {
+        billingAccounts.forEach(billingAccount => billingAccount.addServices(filter(services, {
           billingAccount: billingAccount.billingAccount,
         })));
 

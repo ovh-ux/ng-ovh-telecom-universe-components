@@ -1,4 +1,5 @@
-import _ from 'lodash';
+import get from 'lodash/get';
+import some from 'lodash/some';
 
 /**
  *  @ngdoc object
@@ -45,8 +46,8 @@ export default /* @ngInject */ (TucVoipService) => {
      *  @return {Boolean}   `true` if the line service is a sip trunk.
      */
     isSipTrunk() {
-      const publicOfferName = _.get(this.getPublicOffer, 'name');
-      return publicOfferName === 'trunk' || _.get(publicOfferName.split('.'), '[0]') === 'trunk';
+      const publicOfferName = get(this.getPublicOffer, 'name');
+      return publicOfferName === 'trunk' || get(publicOfferName.split('.'), '[0]') === 'trunk';
     }
 
     /**
@@ -60,7 +61,7 @@ export default /* @ngInject */ (TucVoipService) => {
      *  @return {Boolean}   `true` if the line service is a sip trunk rates.
      */
     isSipTrunkRates() {
-      return _.some(this.offers, offer => offer === 'voip.main.offer.fr.trunk.rates');
+      return some(this.offers, offer => offer === 'voip.main.offer.fr.trunk.rates');
     }
   }
 

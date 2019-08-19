@@ -1,4 +1,6 @@
-import _ from 'lodash';
+import chunk from 'lodash/chunk';
+import difference from 'lodash/difference';
+import filter from 'lodash/filter';
 
 import template from './telecom-v4-links.html';
 
@@ -20,15 +22,20 @@ export default {
     ====================================== */
 
     self.$onInit = () => {
-      const mainActions = _.filter(self.actions, action => action.main && !action.divider);
+      const mainActions = filter(self.actions, action => action.main && !action.divider);
 
-      self.actionRows.main = _.chunk(mainActions, 2);
+      self.actionRows.main = chunk(mainActions, 2);
 
-      self.actionRows.normal = _.chain(self.actions)
-        .difference(mainActions)
-        .filter(action => !action.divider)
-        .chunk(3)
-        .value();
+      self.actionRows.normal = chunk(
+        filter(
+          difference(
+            self.actions,
+            mainActions,
+          ),
+          action => !action.divider,
+        ),
+        3,
+      );
     };
 
     /* -----  End of INITIALIZATION  ------*/

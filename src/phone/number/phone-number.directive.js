@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import set from 'lodash/set';
 
 export default /* @ngInject */ ($q, OvhApiValidateAapi, TelephonyMediator) => ({
   require: 'ngModel',
@@ -13,7 +13,7 @@ export default /* @ngInject */ ($q, OvhApiValidateAapi, TelephonyMediator) => ({
       regionCode = val;
     });
 
-    _.set(ctrl, '$asyncValidators.phoneNumber', (modelValue, viewValue) => {
+    set(ctrl, '$asyncValidators.phoneNumber', (modelValue, viewValue) => {
       /** If i have region, i have to use 2api */
       if (regionCode) {
         if (!modelValue || modelValue.length < minLength) {

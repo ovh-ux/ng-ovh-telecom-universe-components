@@ -1,17 +1,18 @@
-import _ from 'lodash';
+import upperFirst from 'lodash/upperFirst';
+import words from 'lodash/words';
 
-export default () => function (text, capitalizeFirstWord) {
-  const words = _.words(text);
+export default () => function wordsFilter(text, capitalizeFirstWord) {
+  const wordsList = words(text);
 
   if (capitalizeFirstWord) {
-    for (let i = 0; i < words.length; i += 1) {
+    for (let i = 0; i < wordsList.length; i += 1) {
       if (i === 0) {
-        words[i] = _.capitalize(words[i]);
+        wordsList[i] = upperFirst(wordsList[i]);
       } else {
-        words[i] = words[i].toLowerCase();
+        wordsList[i] = wordsList[i].toLowerCase();
       }
     }
   }
 
-  return words.join(' ');
+  return wordsList.join(' ');
 };

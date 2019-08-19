@@ -1,5 +1,5 @@
 import angular from 'angular';
-import _ from 'lodash';
+import forEach from 'lodash/forEach';
 
 export default /* @ngInject */ function ($translate) {
   const self = this;
@@ -46,7 +46,7 @@ export default /* @ngInject */ function ($translate) {
         const sanitized = {};
 
         // allow attribute values as per W3C (https://www.w3.org/TR/xml/#NT-AttValue)
-        _.forEach(Object.keys(value), (key) => {
+        forEach(Object.keys(value), (key) => {
           if (angular.isString(value[key])) {
             sanitized[key] = value[key].replace(/[<&"]/g, '');
           } else {

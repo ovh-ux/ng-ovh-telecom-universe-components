@@ -1,5 +1,5 @@
 import angular from 'angular';
-import _ from 'lodash';
+import keys from 'lodash/keys';
 
 export default /* @ngInject */ (OvhApiSms) => {
   /*= ==================================
@@ -38,7 +38,7 @@ export default /* @ngInject */ (OvhApiSms) => {
   TucSmsService.prototype.setInfos = function (options) {
     const self = this;
 
-    angular.forEach(_.keys(options), (optionKey) => {
+    angular.forEach(keys(options), (optionKey) => {
       self[optionKey] = options[optionKey];
     });
 

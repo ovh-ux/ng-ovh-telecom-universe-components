@@ -1,5 +1,13 @@
 import angular from 'angular';
-import _ from 'lodash';
+import chunk from 'lodash/chunk';
+import filter from 'lodash/filter';
+import flatten from 'lodash/flatten';
+import get from 'lodash/get';
+import has from 'lodash/has';
+import head from 'lodash/head';
+import keys from 'lodash/keys';
+import map from 'lodash/map';
+import set from 'lodash/set';
 
 /**
  *  @ngdoc service
@@ -42,22 +50,30 @@ export default class {
   fetchAll(withError = true) {
     return this.OvhApiTelephony.Service().v7().query().aggregate('billingAccount')
       .expand()
-      .execute().$promise.then(result => _.chain(result).filter(res => _.has(res, 'value') || (withError && (_.keys(res.value).length && _.has(res.value, 'message')))).map((res) => {
-        const billingAccount = _.get(res.path.split('/'), '[2]');
+      .execute()
+      .$promise
+      .then(result => map(
+        filter(
+          result,
+          res => has(res, 'value') || (withError && (keys(res.value).length && has(res.value, 'message'))),
+        ),
+        (res) => {
+          const billingAccount = get(res.path.split('/'), '[2]');
 
-        // same remark as above :-)
-        if (res.error || (_.keys(res.value).length === 1 && _.has(res.value, 'message'))) {
-          return new this.TucVoipService({
-            billingAccount,
-            serviceName: res.key,
-            error: res.error || res.value.message,
-          });
-        }
+          // same remark as above :-)
+          if (res.error || (keys(res.value).length === 1 && has(res.value, 'message'))) {
+            return new this.TucVoipService({
+              billingAccount,
+              serviceName: res.key,
+              error: res.error || res.value.message,
+            });
+          }
 
-        // ensure that billingAccount option is setted
-        _.set(res.value, 'billingAccount', billingAccount);
-        return this.constructService(res.value); // eslint-disable-line
-      }).value());
+          // ensure that billingAccount option is setted
+          set(res.value, 'billingAccount', billingAccount);
+          return this.constructService(res.value); // eslint-disable-line
+        },
+      ));
   }
 
   /**
@@ -80,7 +96,7 @@ export default class {
       serviceName,
     }).$promise.then((result) => {
       // ensure billingAccount is setted
-      _.set(result, 'billingAccount', billingAccount);
+      set(result, 'billingAccount', billingAccount);
       return this.constructService(result); // eslint-disable-line
     });
   }
@@ -154,12 +170,12 @@ export default class {
         action: 'termination',
         type: 'offer',
       }).$promise.then(offerTaskIds => this.$q
-        .all(_.map(offerTaskIds, id => this.OvhApiTelephony.Service().OfferTask().v6().get({
+        .all(map(offerTaskIds, id => this.OvhApiTelephony.Service().OfferTask().v6().get({
           billingAccount: service.billingAccount,
           serviceName: service.serviceName,
           taskId: id,
         }).$promise))
-        .then(tasks => _.first(_.filter(tasks, { status: 'todo' }))));
+        .then(tasks => head(filter(tasks, { status: 'todo' }))));
   }
 
   /**
@@ -200,8 +216,8 @@ export default class {
         billingAccount: service.billingAccount,
         serviceName: service.serviceName,
       }).$promise.then(ids => this.$q
-        .all(_.map(
-          _.chunk(ids, 50),
+        .all(map(
+          chunk(ids, 50),
           chunkIds => this.OvhApiTelephony.Service().VoiceConsumption().v6()
             .getBatch({
               billingAccount: service.billingAccount,
@@ -209,8 +225,8 @@ export default class {
               consumptionId: chunkIds,
             }).$promise,
         ))
-        .then(chunkResult => _.flatten(chunkResult)))
-      .then(result => _.map(result, 'value'));
+        .then(chunkResult => flatten(chunkResult)))
+      .then(result => map(result, 'value'));
   }
 
   /**
@@ -257,7 +273,7 @@ export default class {
    *  @return {Array.<VoipSercice>} The filtered list of aliases.
    */
   static filterAliasServices(services) {
-    return _.filter(services, {
+    return filter(services, {
       serviceType: 'alias',
     });
   }
@@ -275,7 +291,7 @@ export default class {
    *  @return {Array.<VoipSercice>} The filtered list of lines.
    */
   static filterLineServices(services) {
-    return _.filter(services, {
+    return filter(services, {
       serviceType: 'line',
     });
   }
@@ -295,7 +311,7 @@ export default class {
    *  @return {Array.<VoipSercice>} The filtered list of plugAndFax.
    */
   static filterPlugAndFaxServices(services) {
-    return _.filter(services, {
+    return filter(services, {
       featureType: 'plugAndFax',
     });
   }
@@ -313,7 +329,7 @@ export default class {
    *  @return {Array.<VoipSercice>} The filtered list of fax.
    */
   static filterFaxServices(services) {
-    return _.filter(services, service => ['fax', 'voicefax'].indexOf(service.featureType) > -1);
+    return filter(services, service => ['fax', 'voicefax'].indexOf(service.featureType) > -1);
   }
 
   /* -----  End of Filters  ------ */

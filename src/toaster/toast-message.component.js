@@ -1,4 +1,6 @@
-import _ from 'lodash';
+import forEach from 'lodash/forEach';
+import filter from 'lodash/filter';
+import set from 'lodash/set';
 
 import template from './toast-message.html';
 
@@ -20,7 +22,7 @@ export default {
 
     this.updateMessages = (messages) => {
       // update messages timestamp
-      const pendingMessages = _.filter(messages, m => !m.timestamp);
+      const pendingMessages = filter(messages, m => !m.timestamp);
 
       if (pendingMessages.length) {
         this.hasNewMessages = true;
@@ -29,8 +31,8 @@ export default {
         }, 1000);
       }
 
-      _.each(pendingMessages, (m) => {
-        _.set(m, 'timestamp', timestamp);
+      forEach(pendingMessages, (m) => {
+        set(m, 'timestamp', timestamp);
       });
     };
 
@@ -40,7 +42,7 @@ export default {
       this.updateMessages(messages);
 
       // do not display old messages
-      return _.filter(messages, m => m.timestamp >= timestamp);
+      return filter(messages, m => m.timestamp >= timestamp);
     };
 
     this.getAllMessages = () => {
@@ -49,7 +51,7 @@ export default {
       this.updateMessages(messages);
 
       // do not display old messages
-      return _.filter(messages, m => m.timestamp >= timestamp);
+      return filter(messages, m => m.timestamp >= timestamp);
     };
 
     this.hasMessagesOfType = type => this.getMessagesByType(type).length > 0;

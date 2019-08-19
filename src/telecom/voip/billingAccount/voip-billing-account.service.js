@@ -1,4 +1,6 @@
-import _ from 'lodash';
+import filter from 'lodash/filter';
+import has from 'lodash/has';
+import map from 'lodash/map';
 
 /**
  *  @ngdoc service
@@ -32,14 +34,26 @@ export default class {
    *  @return {Promise} That return an Array of TucVoipBillingAccount instances.
    */
   fetchAll(withError = true) {
-    return this.OvhApiTelephony.v7().query().expand().execute().$promise.then(result => _.chain(result).filter(res => _.has(res, 'value') || (withError && _.has(res, 'error'))).map((res) => {
-      if (res.value) {
-        return new this.TucVoipBillingAccount(res.value);
-      }
-      return new this.TucVoipBillingAccount({
-        billingAccount: res.key,
-        error: res.error,
-      });
-    }).value());
+    return this.OvhApiTelephony
+      .v7()
+      .query()
+      .expand()
+      .execute()
+      .$promise
+      .then(result => map(
+        filter(
+          result,
+          res => has(res, 'value') || (withError && has(res, 'error')),
+        ),
+        (res) => {
+          if (res.value) {
+            return new this.TucVoipBillingAccount(res.value);
+          }
+          return new this.TucVoipBillingAccount({
+            billingAccount: res.key,
+            error: res.error,
+          });
+        },
+      ));
   }
 }

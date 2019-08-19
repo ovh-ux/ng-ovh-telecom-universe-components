@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import map from 'lodash/map';
 
 export default function () {
   const self = this;
@@ -26,7 +26,7 @@ export default function () {
     if (bulkResult.error.length) {
       let errorList = '<ul>';
       bulkResult.error.forEach((error) => {
-        errorList += `<li>${noDetails ? `${error.serviceName}</li>` : `${[error.serviceName, _.map(error.errors, 'error').join(', ')].join(' - ')}</li>`}`;
+        errorList += `<li>${noDetails ? `${error.serviceName}</li>` : `${[error.serviceName, map(error.errors, 'error').join(', ')].join(' - ')}</li>`}`;
       });
       errorList += '</ul>';
 

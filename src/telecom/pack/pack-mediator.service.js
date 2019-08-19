@@ -1,5 +1,10 @@
 import angular from 'angular';
-import _ from 'lodash';
+import assign from 'lodash/assign';
+import chunk from 'lodash/chunk';
+import find from 'lodash/find';
+import flatten from 'lodash/flatten';
+import map from 'lodash/map';
+import set from 'lodash/set';
 
 export default /* @ngInject */ function TucPackMediator($q, OvhApiPackXdsl, OvhApiXdsl) {
   const self = this;
@@ -11,12 +16,12 @@ export default /* @ngInject */ function TucPackMediator($q, OvhApiPackXdsl, OvhA
 
     // chunkify to avoids "request too large" error
     return $q
-      .all(_.map(_.chunk(ids, 200), chunkIds => OvhApiXdsl.Lines().v7()
+      .all(map(chunk(ids, 200), chunkIds => OvhApiXdsl.Lines().v7()
         .query()
         .batch('serviceName', [''].concat(chunkIds), ',')
         .expand()
         .execute().$promise))
-      .then(chunkResult => _.flatten(chunkResult)).then(result => _.flatten(result));
+      .then(chunkResult => flatten(chunkResult)).then(result => flatten(result));
   };
 
   self.fetchPackAccessByIds = function (ids) {
@@ -25,7 +30,7 @@ export default /* @ngInject */ function TucPackMediator($q, OvhApiPackXdsl, OvhA
     }
 
     // chunkify to avoids "request too large" error
-    return $q.all(_.map(_.chunk(ids, 200), chunkIds => OvhApiPackXdsl.v7().access().batch('packName', [''].concat(chunkIds), ',').execute().$promise)).then(chunkResult => _.flatten(chunkResult)).then(result => _.flatten(result));
+    return $q.all(map(chunk(ids, 200), chunkIds => OvhApiPackXdsl.v7().access().batch('packName', [''].concat(chunkIds), ',').execute().$promise)).then(chunkResult => flatten(chunkResult)).then(result => flatten(result));
   };
 
   self.fetchXdslByIds = function (ids) {
@@ -35,17 +40,17 @@ export default /* @ngInject */ function TucPackMediator($q, OvhApiPackXdsl, OvhA
 
     // chunkify to avoids "request too large" error
     return $q
-      .all(_.map(_.chunk(ids, 200), chunkIds => OvhApiXdsl.v7()
+      .all(map(chunk(ids, 200), chunkIds => OvhApiXdsl.v7()
         .query()
         .batch('serviceName', [''].concat(chunkIds), ',')
         .expand()
         .execute().$promise))
-      .then(chunkResult => _.flatten(chunkResult)).then(result => _.flatten(result));
+      .then(chunkResult => flatten(chunkResult)).then(result => flatten(result));
   };
 
   self.fetchXdslByNumber = function () {
     return OvhApiXdsl.Lines().v7().get().aggregate('serviceName')
-      .execute().$promise.then(result => self.fetchXdslByIds(_.map(result, (item) => {
+      .execute().$promise.then(result => self.fetchXdslByIds(map(result, (item) => {
         if (item && item.path) {
           const match = /\/xdsl\/([^/]+)/.exec(item.path);
           return match && match.length >= 2 ? match[1] : null;
@@ -58,44 +63,44 @@ export default /* @ngInject */ function TucPackMediator($q, OvhApiPackXdsl, OvhA
     const request = OvhApiPackXdsl.v7().query().sort(['description', 'offerDescription', 'packName']);
     let packList = [];
     return request.expand().execute().$promise.then((result) => {
-      packList = _.pluck(result, 'value');
+      packList = map(result, 'value');
       angular.forEach(packList, (pack) => {
-        _.set(pack, 'xdsl', []);
+        set(pack, 'xdsl', []);
       });
-    }).then(() => self.fetchPackAccessByIds(_.pluck(packList, 'packName')).then((result) => {
+    }).then(() => self.fetchPackAccessByIds(map(packList, 'packName')).then((result) => {
       angular.forEach(result, (access) => {
         if (access.path && angular.isArray(access.value)) {
           const match = /\/pack\/xdsl\/([^/]+)/.exec(access.path);
           const packId = match && match.length === 2 ? match[1] : null;
-          const pack = _.find(packList, { packName: packId });
+          const pack = find(packList, { packName: packId });
           if (pack) {
-            pack.xdsl = pack.xdsl.concat(_.map(access.value, id => ({ accessName: id })));
+            pack.xdsl = pack.xdsl.concat(map(access.value, id => ({ accessName: id })));
           }
         }
       });
     })).then(() => {
       // fetch xdsl details of each xdsl
-      const xdslIds = _.pluck(_.flatten(_.pluck(packList, 'xdsl')), 'accessName');
+      const xdslIds = map(flatten(map(packList, 'xdsl')), 'accessName');
       return self.fetchXdslByIds(xdslIds).then((result) => {
         angular.forEach(result, (xdsl) => {
           angular.forEach(packList, (pack) => {
-            const found = _.find(pack.xdsl, { accessName: xdsl.key });
+            const found = find(pack.xdsl, { accessName: xdsl.key });
             if (found) {
-              _.assign(found, xdsl.value);
+              assign(found, xdsl.value);
             }
           });
         });
       });
     }).then(() => {
       // fetch line of each xdsl
-      const xdslIds = _.pluck(_.flatten(_.pluck(packList, 'xdsl')), 'accessName');
+      const xdslIds = map(flatten(map(packList, 'xdsl')), 'accessName');
       return self.fetchLinesByIds(xdslIds).then((lines) => {
         angular.forEach(lines, (result) => {
           if (result.path) {
             const match = /\/xdsl\/([^/]+)/.exec(result.path);
             const xdslId = match && match.length === 2 ? match[1] : null;
             angular.forEach(packList, (pack) => {
-              const found = _.find(pack.xdsl, { accessName: xdslId });
+              const found = find(pack.xdsl, { accessName: xdslId });
               if (found) {
                 found.line = result.value;
               }
@@ -111,17 +116,17 @@ export default /* @ngInject */ function TucPackMediator($q, OvhApiPackXdsl, OvhA
     const request = OvhApiXdsl.v7().query().addFilter('accessType', 'eq', xdslType).sort(['description', 'accessName']);
     let xdslList = [];
     return request.expand().execute().$promise.then((result) => {
-      xdslList = xdslList.concat(_.pluck(result, 'value'));
+      xdslList = xdslList.concat(map(result, 'value'));
     }).then(() => {
       angular.forEach(xdslList, (sdsl) => {
-        _.set(sdsl, 'lines', []);
+        set(sdsl, 'lines', []);
       });
-      return self.fetchLinesByIds(_.pluck(xdslList, 'accessName')).then((lines) => {
+      return self.fetchLinesByIds(map(xdslList, 'accessName')).then((lines) => {
         angular.forEach(lines, (result) => {
           if (result.path) {
             const match = /\/xdsl\/([^/]+)/.exec(result.path);
             const sdslId = match && match.length === 2 ? match[1] : null;
-            const sdsl = _.find(xdslList, { accessName: sdslId });
+            const sdsl = find(xdslList, { accessName: sdslId });
             if (sdsl) {
               sdsl.lines.push(result.value);
             }

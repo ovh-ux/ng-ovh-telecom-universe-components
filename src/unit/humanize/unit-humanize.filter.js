@@ -1,11 +1,13 @@
-import _ from 'lodash';
+import isFinite from 'lodash/isFinite';
+import isNaN from 'lodash/isNaN';
+import isUndefined from 'lodash/isUndefined';
 
 export default /* @ngInject */ $translate => function (bytes, type, precision) {
   let precisionVal = precision;
-  if (_.isNaN(parseFloat(bytes)) || !_.isFinite(bytes)) {
+  if (isNaN(parseFloat(bytes)) || !isFinite(bytes)) {
     return '-';
   }
-  if (_.isUndefined(precision)) {
+  if (isUndefined(precision)) {
     precisionVal = 1;
   }
   const units = {

@@ -1,4 +1,7 @@
-import _ from 'lodash';
+import forEach from 'lodash/forEach';
+import isEmpty from 'lodash/isEmpty';
+import mapValues from 'lodash/mapValues';
+import omit from 'lodash/omit';
 
 export default /* @ngInject */ function ($rootScope, $q, OvhApiXdsl, Poller) {
   const self = this;
@@ -14,14 +17,14 @@ export default /* @ngInject */ function ($rootScope, $q, OvhApiXdsl, Poller) {
       self.capabilities = results.capabilities.data;
 
       // throw rising tasks
-      _.forEach(results.current.data, (state, key) => {
+      forEach(results.current.data, (state, key) => {
         if (state && !self.tasks[key]) {
           self.raiseTask(key, true, true);
         }
       });
 
       // throw falling tasks
-      _.forEach(self.tasks, (state, key) => {
+      forEach(self.tasks, (state, key) => {
         if (state && !results.current.data[key]) {
           self.raiseTask(key, false, true);
         }
@@ -29,7 +32,7 @@ export default /* @ngInject */ function ($rootScope, $q, OvhApiXdsl, Poller) {
     }
 
     function error(err) {
-      if (!_.isEmpty(err)) {
+      if (!isEmpty(err)) {
         callbackError(err);
       }
     }
@@ -53,7 +56,7 @@ export default /* @ngInject */ function ($rootScope, $q, OvhApiXdsl, Poller) {
   };
 
   this.disableCapabilities = function () {
-    this.capabilities = _.mapValues(this.capabilities, (val, key) => {
+    this.capabilities = mapValues(this.capabilities, (val, key) => {
       if (['canBeManagedByOvh', 'canChangeMtu', 'canChangeFirmware'].indexOf(key)) {
         return val;
       }
@@ -78,7 +81,7 @@ export default /* @ngInject */ function ($rootScope, $q, OvhApiXdsl, Poller) {
       xdslId: serviceName,
     }).$promise.then((data) => {
       self.capabilities = data.capabilities;
-      self.info = _.omit(data, ['capabilities']);
+      self.info = omit(data, ['capabilities']);
       pollModem('packXdslModemTasks', serviceName, callbackError);
       return data;
     }).catch(err => $q.reject(err));

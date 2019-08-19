@@ -1,6 +1,6 @@
 import angular from 'angular';
 import moment from 'moment';
-import _ from 'lodash';
+import padStart from 'lodash/padStart';
 
 /**
  *  @ngdoc service
@@ -39,7 +39,7 @@ export default class {
     const month = 3 + Math.floor((level + 40) / 44);
     const day = level + 28 - (31 * Math.floor(month / 4));
 
-    return [this.year, _.padLeft(month, 2, '0'), _.padLeft(day, 2, '0')].join('-');
+    return [this.year, padStart(month, 2, '0'), padStart(day, 2, '0')].join('-');
   }
 
   /**

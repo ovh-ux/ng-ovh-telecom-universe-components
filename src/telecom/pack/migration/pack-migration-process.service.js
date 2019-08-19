@@ -1,5 +1,12 @@
 import angular from 'angular';
-import _ from 'lodash';
+import assign from 'lodash/assign';
+import forEach from 'lodash/forEach';
+import filter from 'lodash/filter';
+import includes from 'lodash/includes';
+import keyBy from 'lodash/keyBy';
+import map from 'lodash/map';
+import set from 'lodash/set';
+import values from 'lodash/values';
 
 /**
  *  Service used to share data between differents steps of the pack migration process.
@@ -40,7 +47,7 @@ export default /* @ngInject */ function ($q, OvhApiPackXdsl, Poller) {
   };
 
   self.getOptionsSelected = function () {
-    return _.filter(_.values(migrationProcess.selectedOffer.options), option => option.optional && option.choosedValue > 0 && option.name !== 'gtr_ovh');
+    return filter(values(migrationProcess.selectedOffer.options), option => option.optional && option.choosedValue > 0 && option.name !== 'gtr_ovh');
   };
 
   /* -----  End of HELPERS  ------*/
@@ -71,7 +78,7 @@ export default /* @ngInject */ function ($q, OvhApiPackXdsl, Poller) {
     };
 
     // options post params
-    const migrationOptions = _.map(self.getOptionsSelected(), option => ({
+    const migrationOptions = map(self.getOptionsSelected(), option => ({
       name: option.name,
       quantity: option.choosedValue,
     }));
@@ -98,7 +105,7 @@ export default /* @ngInject */ function ($q, OvhApiPackXdsl, Poller) {
       postParams.subServicesToDelete = [];
       angular.forEach(migrationProcess.selectedOffer.subServicesToDelete, (subService) => {
         postParams.subServicesToDelete = postParams
-          .subServicesToDelete.concat(_.map(_.filter(subService.services, {
+          .subServicesToDelete.concat(map(filter(subService.services, {
             selected: true,
           }), service => ({
             service: service.name,
@@ -108,19 +115,19 @@ export default /* @ngInject */ function ($q, OvhApiPackXdsl, Poller) {
     }
 
     // building details post params
-    _.assign(postParams, {
+    assign(postParams, {
       buildingReference: migrationProcess.selectedOffer.buildingReference,
       stair: migrationProcess.selectedOffer.stair,
       floor: migrationProcess.selectedOffer.floor,
     });
 
     // OTP post params
-    _.assign(postParams, {
+    assign(postParams, {
       otp: migrationProcess.selectedOffer.pto,
     });
 
     if (migrationProcess.selectedOffer.pto && migrationProcess.selectedOffer.ptoReference) {
-      _.assign(postParams, {
+      assign(postParams, {
         otpReference: migrationProcess.selectedOffer.ptoReference,
       });
     }
@@ -160,7 +167,7 @@ export default /* @ngInject */ function ($q, OvhApiPackXdsl, Poller) {
     return OvhApiPackXdsl.v6().getServices({
       packId: migrationProcess.pack.packName,
     }).$promise.then((packOptions) => {
-      migrationProcess.pack.options = _.indexBy(packOptions, 'name');
+      migrationProcess.pack.options = keyBy(packOptions, 'name');
     });
   }
 
@@ -188,21 +195,21 @@ export default /* @ngInject */ function ($q, OvhApiPackXdsl, Poller) {
       method: 'post',
     }).then((pollResult) => {
       if (!pollResult.error) {
-        _.set(pollResult, 'result.offers', _.map(pollResult.result.offers, (offer) => {
-          _.set(offer, 'displayedPrice', offer.price);
-          _.set(offer, 'totalSubServiceToDelete', 0);
-          _.each(offer.subServicesToDelete, (subService) => {
+        set(pollResult, 'result.offers', map(pollResult.result.offers, (offer) => {
+          set(offer, 'displayedPrice', offer.price);
+          set(offer, 'totalSubServiceToDelete', 0);
+          forEach(offer.subServicesToDelete, (subService) => {
             offer.totalSubServiceToDelete += subService.numberToDelete; // eslint-disable-line
             return offer.totalSubServiceToDelete;
           });
           angular.forEach(offer.subServicesToDelete, (subService) => {
-            _.set(subService, 'services', _.map(subService.services, (service, index, originalArray) => ({
+            set(subService, 'services', map(subService.services, (service, index, originalArray) => ({
               name: service,
               selected: originalArray.length === subService.numberToDelete,
             })));
           });
-          _.set(offer, 'options', _.indexBy(offer.options, 'name'));
-          _.set(offer, 'buildings', pollResult.result.buildings);
+          set(offer, 'options', keyBy(offer.options, 'name'));
+          set(offer, 'buildings', pollResult.result.buildings);
           return offer;
         }));
       }
@@ -220,9 +227,9 @@ export default /* @ngInject */ function ($q, OvhApiPackXdsl, Poller) {
 
   self.selectOffer = function (offer) {
     migrationProcess.selectedOffer = offer;
-    if (_.includes(migrationProcess.selectedOffer.offerName.toLowerCase(), 'ftth')) {
+    if (includes(migrationProcess.selectedOffer.offerName.toLowerCase(), 'ftth')) {
       // Check if the current offer is already FTTH
-      if (_.includes(migrationProcess.pack.offerDescription.toLowerCase(), 'ftth')) {
+      if (includes(migrationProcess.pack.offerDescription.toLowerCase(), 'ftth')) {
         migrationProcess.currentStep = 'serviceDelete';
       } else {
         migrationProcess.currentStep = 'buildingDetails';

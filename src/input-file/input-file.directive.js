@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import set from 'lodash/set';
 
 import template from './input-file.html';
 
@@ -15,7 +15,7 @@ export default () => ({
   template,
   link(scope, element, attrs, controller) {
     if (attrs.hasOwnProperty('ngAcceptFilter')) { // eslint-disable-line
-      _.set(controller, 'hasNgAcceptFilter', true);
+      set(controller, 'hasNgAcceptFilter', true);
     }
   },
   controller($scope, $element, $timeout) {
