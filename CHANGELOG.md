@@ -1,3 +1,12 @@
+## [3.0.9](https://github.com/ovh-ux/ng-ovh-telecom-universe-components/compare/v3.0.8...v3.0.9) (2019-08-19)
+
+
+### Bug Fixes
+
+* **ovh-password:** add strength check template in cache ([#70](https://github.com/ovh-ux/ng-ovh-telecom-universe-components/issues/70)) ([5d52507](https://github.com/ovh-ux/ng-ovh-telecom-universe-components/commit/5d52507))
+
+
+
 ## [3.0.8](https://github.com/ovh-ux/ng-ovh-telecom-universe-components/compare/v3.0.7...v3.0.8) (2019-08-19)
 
 
