@@ -1,5 +1,8 @@
 import angular from 'angular';
-import _ from 'lodash';
+import defaults from 'lodash/defaults';
+import filter from 'lodash/filter';
+import get from 'lodash/get';
+import remove from 'lodash/remove';
 
 /**
  * ovh-angular-toaster replacement.
@@ -14,9 +17,9 @@ export default /* @ngInject */ function ($timeout) {
   let messages = []; // list of message
 
   function pushMessage(message, type, opts) {
-    const options = _.defaults(opts || {}, defaultOptions);
+    const options = defaults(opts || {}, defaultOptions);
 
-    const timeout = _.get(options, 'hideAfter');
+    const timeout = get(options, 'hideAfter');
     const msg = {
       content: message,
       type,
@@ -26,7 +29,7 @@ export default /* @ngInject */ function ($timeout) {
 
     if (angular.isNumber(timeout)) {
       $timeout(() => {
-        _.remove(messages, msg);
+        remove(messages, msg);
       }, timeout);
     }
   }
@@ -52,11 +55,11 @@ export default /* @ngInject */ function ($timeout) {
   };
 
   self.clearMessage = function (message) {
-    messages = _.filter(messages, msg => msg !== message);
+    messages = filter(messages, msg => msg !== message);
   };
 
   self.clearMessagesByType = function (type) {
-    messages = _.filter(messages, msg => msg.type !== type);
+    messages = filter(messages, msg => msg.type !== type);
   };
 
   self.getMessages = function () {
@@ -64,6 +67,6 @@ export default /* @ngInject */ function ($timeout) {
   };
 
   self.getMessagesByType = function (type) {
-    return _.filter(messages, { type });
+    return filter(messages, { type });
   };
 }

@@ -1,4 +1,7 @@
-import _ from 'lodash';
+import countBy from 'lodash/countBy';
+import forEach from 'lodash/forEach';
+import reduce from 'lodash/reduce';
+import reject from 'lodash/reject';
 
 export default () => ({
   restrict: 'A',
@@ -11,13 +14,13 @@ export default () => ({
   link($scope) {
     function strReverse(str) {
       let reverse = '';
-      _.each(str, (e) => {
+      forEach(str, (e) => {
         reverse += e;
       });
       return reverse;
     }
 
-    $scope.getRoundValue = function (value) {
+    $scope.getRoundValue = function getRoundValue(value) {
       let result = value;
       if (result > 0) {
         if (result > 66) {
@@ -31,7 +34,7 @@ export default () => ({
       return result;
     };
 
-    $scope.getClass = function (value) {
+    $scope.getClass = function getClass(value) {
       let clazz = '';
 
       if (value > 66) {
@@ -59,7 +62,7 @@ export default () => ({
       },
     };
 
-    const checkStrength = function (p) {
+    const checkStrength = function checkStrength(p) {
       let tmp;
       let strength = 0;
       const letters = 'abcdefghijklmnopqrstuvwxyz';
@@ -83,7 +86,7 @@ export default () => ({
         counts.pos.numbers = matches.pos.numbers ? matches.pos.numbers.length : 0;
         counts.pos.symbols = matches.pos.symbols ? matches.pos.symbols.length : 0;
 
-        tmp = _.reduce(
+        tmp = reduce(
           counts.pos, (memo, val) => memo + Math.min(1, val),
           0,
         );
@@ -136,11 +139,17 @@ export default () => ({
         }
 
         // repeated chars
-        counts.neg.repeated = _.chain(p.toLowerCase().split(''))
-          .countBy(val => val)
-          .reject(val => val === 1)
-          .reduce((memo, val) => memo + val, 0)
-          .value();
+        counts.neg.repeated = reduce(
+          reject(
+            countBy(
+              p.toLowerCase().split(''),
+              val => val,
+            ),
+            val => val === 1,
+          ),
+          (memo, val) => memo + val,
+          0,
+        );
 
         // Calculations
         strength += counts.pos.numChars * 4;

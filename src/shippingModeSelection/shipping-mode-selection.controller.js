@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import defaults from 'lodash/defaults';
 
 export default function () {
   const self = this;
@@ -16,7 +16,7 @@ export default function () {
     =============================== */
 
   function checkOptions() {
-    self.options = _.defaults(self.options || {}, {
+    self.options = defaults(self.options || {}, {
       forceContactSelect: false,
       payForRelay: false,
       disableMondialRelay: false,

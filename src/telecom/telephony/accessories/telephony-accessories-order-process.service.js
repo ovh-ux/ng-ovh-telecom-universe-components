@@ -1,5 +1,8 @@
 import angular from 'angular';
-import _ from 'lodash';
+import each from 'lodash/each';
+import fill from 'lodash/fill';
+import filter from 'lodash/filter';
+import map from 'lodash/map';
 
 export default /* @ngInject */ function (
   $q,
@@ -14,11 +17,11 @@ export default /* @ngInject */ function (
     =            HELPERS            =
     =============================== */
 
-  self.getOrderProcess = function () {
+  self.getOrderProcess = function getOrderProcess() {
     return orderProcess;
   };
 
-  self.getPriceStruct = function (value) {
+  self.getPriceStruct = function getPriceStruct(value) {
     return {
       currencyCode: 'EUR',
       text: `${value.toFixed(2)} €`,
@@ -29,12 +32,15 @@ export default /* @ngInject */ function (
   function getAccessoryList() {
     let list = [];
 
-    _.chain(orderProcess.accessoriesList)
-      .filter(accessory => accessory.quantity > 0)
-      .each((accessory) => {
-        list = list.concat(_.fill(new Array(accessory.quantity), accessory.name));
-      })
-      .value();
+    each(
+      filter(
+        orderProcess.accessoriesList,
+        accessory => accessory.quantity > 0,
+      ),
+      (accessory) => {
+        list = list.concat(fill(new Array(accessory.quantity), accessory.name));
+      },
+    );
 
     return list;
   }
@@ -45,12 +51,12 @@ export default /* @ngInject */ function (
     =            ACCESSORIES            =
     =================================== */
 
-  self.getAvailableAccessories = function (country) {
+  self.getAvailableAccessories = function getAvailableAccessories(country) {
     if (!orderProcess.accessoriesList) {
       return OvhApiTelephony.v6().accessories({
         country: country || 'fr',
       }).$promise.then((accessoriesList) => {
-        orderProcess.accessoriesList = _.map(
+        orderProcess.accessoriesList = map(
           accessoriesList,
           accessory => angular.extend(accessory, {
             url: TUC_TELEPHONY_LINE_PHONE_ACCESSORIES[accessory.name]
@@ -73,14 +79,15 @@ export default /* @ngInject */ function (
     =            CHECKOUT            =
     ================================ */
 
-  self.getOrderCheckout = function () {
+  self.getOrderCheckout = function getOrderCheckout() {
     return OvhApiOrder.Telephony().v6().getAccessories({
       billingAccount: orderProcess.billingAccount,
       accessories: getAccessoryList(),
       retractation: true,
       shippingContactId: orderProcess.shipping.contact
         ? orderProcess.shipping.contact.id : undefined,
-      mondialRelayId: orderProcess.shipping.mode === 'mondialRelay' && orderProcess.shipping.relay ? orderProcess.shipping.relay.id : null,
+      mondialRelayId: orderProcess.shipping.mode === 'mondialRelay'
+        && orderProcess.shipping.relay ? orderProcess.shipping.relay.id : null,
     }).$promise;
   };
 

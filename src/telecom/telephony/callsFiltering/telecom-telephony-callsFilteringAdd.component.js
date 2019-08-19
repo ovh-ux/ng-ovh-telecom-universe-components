@@ -1,5 +1,8 @@
 import angular from 'angular';
-import _ from 'lodash';
+import endsWith from 'lodash/endsWith';
+import find from 'lodash/find';
+import map from 'lodash/map';
+import startsWith from 'lodash/startsWith';
 
 import template from './telecom-telephony-callsFilteringAdd.html';
 import templateOpenHelper from './addHelper/telecom-telephony-callsFilteringAddHelper.html';
@@ -61,7 +64,7 @@ export default /* @ngInject */ {
 
     self.isScreenListsAlreadyExisting = function isScreenListsAlreadyExisting() {
       const list = self.getScreenList();
-      let found = _.find(list, {
+      let found = find(list, {
         callNumber: self.screenListToAdd.callNumber || '',
         nature: self.screenListToAdd.nature,
         type: self.screenListToAdd.type,
@@ -70,13 +73,13 @@ export default /* @ngInject */ {
       // try to find the screenlist by modifying callNumber because +123 === 00123
       if (!found && self.screenListToAdd.callNumber) {
         let modifiedCallNumber = self.screenListToAdd.callNumber;
-        if (_.startsWith(self.screenListToAdd.callNumber, '+')) {
+        if (startsWith(self.screenListToAdd.callNumber, '+')) {
           modifiedCallNumber = `00${self.screenListToAdd.callNumber.slice(1)}`;
-        } else if (_.startsWith(self.screenListToAdd.callNumber, '00')) {
+        } else if (startsWith(self.screenListToAdd.callNumber, '00')) {
           modifiedCallNumber = `+${self.screenListToAdd.callNumber.slice(2)}`;
         }
         if (modifiedCallNumber !== self.screenListToAdd.callNumber) {
-          found = _.find(list, {
+          found = find(list, {
             callNumber: modifiedCallNumber,
             nature: self.screenListToAdd.nature,
             type: self.screenListToAdd.type,
@@ -89,7 +92,7 @@ export default /* @ngInject */ {
 
     self.checkValidCSV = function checkValidCSV(file) {
       const fileName = file ? file.name : '';
-      const found = _.endsWith(fileName, 'csv');
+      const found = endsWith(fileName, 'csv');
       if (!found) {
         TucToastError($translate.instant('telephony_calls_filtering_add_csv_invalid'));
       }
@@ -110,7 +113,7 @@ export default /* @ngInject */ {
         return $q.when(new TucToastError($translate.instant('telephony_calls_filtering_add_csv_parse_error'), err));
       }
       TucToast.info($translate.instant('telephony_calls_filtering_add_csv_import_success'));
-      return $q.all(_.map(csvArray, line => self.addScreenList({
+      return $q.all(map(csvArray, line => self.addScreenList({
         screen: {
           callNumber: line[0],
           nature: line[1],

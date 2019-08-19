@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import set from 'lodash/set';
 
 import template from './gauge.html';
 
@@ -13,9 +13,9 @@ export default /* @ngInject */ () => ({
   controllerAs: '$ctrl',
   bindToController: true,
   link(scope, elt, attrs, controller) {
-    _.set(controller, 'cursor', elt.find('.gauge-cursor'));
-    _.set(controller, 'svg', elt.find('svg.gauge'));
-    _.set(controller, 'gaugeContainer', elt.find('g.gauge'));
+    set(controller, 'cursor', elt.find('.gauge-cursor'));
+    set(controller, 'svg', elt.find('svg.gauge'));
+    set(controller, 'gaugeContainer', elt.find('g.gauge'));
   },
   controller($scope, $interval) {
     'ngInject';

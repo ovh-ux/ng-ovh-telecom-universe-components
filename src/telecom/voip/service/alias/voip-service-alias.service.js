@@ -1,4 +1,11 @@
-import _ from 'lodash';
+import chunk from 'lodash/chunk';
+import filter from 'lodash/filter';
+import flatten from 'lodash/flatten';
+import get from 'lodash/get';
+import head from 'lodash/head';
+import map from 'lodash/map';
+import set from 'lodash/set';
+import sortBy from 'lodash/sortBy';
 
 /**
  *  @ngdoc service
@@ -48,11 +55,11 @@ export default class {
         type: 'offer',
       }).$promise
       .then(offerTaskIds => this.$q
-        .all(_.map(offerTaskIds, id => this.OvhApiTelephony.Service().OfferTask().v6().get({
+        .all(map(offerTaskIds, id => this.OvhApiTelephony.Service().OfferTask().v6().get({
           billingAccount,
           serviceName,
           taskId: id,
-        }).$promise)).then(tasks => _.first(_.filter(tasks, { status: 'todo' }))));
+        }).$promise)).then(tasks => head(filter(tasks, { status: 'todo' }))));
   }
 
   /**
@@ -202,7 +209,7 @@ export default class {
     return this.OvhApiTelephony.Rsva().v6().getScheduledRateCode({
       billingAccount,
       serviceName,
-    }).$promise.catch(error => (_.get(error, 'data.message', error.message) === this.TUC_TELEPHONY_ALIAS_SPECIAL_NUMBER.noScheduledRateCode ? null : this.$q.reject(error)));
+    }).$promise.catch(error => (get(error, 'data.message', error.message) === this.TUC_TELEPHONY_ALIAS_SPECIAL_NUMBER.noScheduledRateCode ? null : this.$q.reject(error)));
   }
 
   /**
@@ -430,7 +437,7 @@ export default class {
       }).$promise.then((agentIds) => {
         if (typeof agentIds !== 'string') {
           return this.$q.all(
-            _.chunk(agentIds, 50).map(chunkIds => this.OvhApiTelephony.EasyHunting().Hunting()
+            chunk(agentIds, 50).map(chunkIds => this.OvhApiTelephony.EasyHunting().Hunting()
               .Agent()
               .v6()
               .getBatch({
@@ -438,7 +445,7 @@ export default class {
                 serviceName,
                 agentId: chunkIds,
               }).$promise),
-          ).then(agents => _(agents).flatten().pluck('value').value());
+          ).then(agents => map(flatten(agents), 'value'));
         }
 
         return this.$q.reject();
@@ -468,22 +475,30 @@ export default class {
         billingAccount,
         serviceName,
         queueId,
-        agentId: _.pluck(agents, 'agentId'),
+        agentId: map(agents, 'agentId'),
       }).$promise.then((queues) => {
         const orderedAgents = agents.map((agentParam) => {
           const agent = agentParam;
-          const positionToSet = _(queues)
-            .flatten()
-            .pluck('value')
-            .filter(queue => queue.agentId === agent.agentId)
-            .first()
-            .position;
+          const positionToSet = get(
+            head(
+              filter(
+                map(
+                  flatten(
+                    queues,
+                  ),
+                  'value',
+                ),
+                queue => queue.agentId === agent.agentId,
+              ),
+            ),
+            'position',
+          );
 
           agent.position = positionToSet;
           return agent;
         });
 
-        return _.sortBy(orderedAgents, 'position');
+        return sortBy(orderedAgents, 'position');
       }));
   }
 
@@ -607,7 +622,7 @@ export default class {
       }).$promise
       .then((recordsIds) => {
         if (typeof recordsIds !== 'string') {
-          return this.$q.all(_.chunk(recordsIds, 50)
+          return this.$q.all(chunk(recordsIds, 50)
             .map(chunkIds => this.OvhApiTelephony.EasyHunting().Records().v6()
               .getBatch({
                 billingAccount,
@@ -618,7 +633,7 @@ export default class {
 
         return this.$q.reject();
       })
-      .then(records => _(records).flatten().map('value').value());
+      .then(records => map(flatten(records), 'value'));
   }
 
   /**
@@ -672,7 +687,7 @@ export default class {
                   queueId,
                   agentId,
                 }).$promise.then((agentStatus) => {
-                  _.set(agentStatus, 'agentId', agentId);
+                  set(agentStatus, 'agentId', agentId);
                   return agentStatus;
                 }),
             ));
@@ -779,7 +794,7 @@ export default class {
       }).$promise
       .then(ids => this.$q
         .all(
-          _.chunk(ids, 50).map(chunkIds => this.OvhApiTelephony.EasyHunting()
+          chunk(ids, 50).map(chunkIds => this.OvhApiTelephony.EasyHunting()
             .ScreenListConditions().Conditions().v6()
             .getBatch({
               billingAccount,
@@ -787,7 +802,7 @@ export default class {
               conditionId: chunkIds,
             }).$promise),
         )
-        .then(chunkResult => _(chunkResult).flatten().map('value').value()));
+        .then(chunkResult => map(flatten(chunkResult), 'value')));
   }
 
   /**

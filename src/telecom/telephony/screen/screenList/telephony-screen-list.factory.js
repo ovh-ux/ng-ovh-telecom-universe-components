@@ -1,4 +1,6 @@
-import _ from 'lodash';
+import get from 'lodash/get';
+import now from 'lodash/now';
+import random from 'lodash/random';
 /**
  *  @todo : manage sip feature type => /screen API
  */
@@ -43,8 +45,8 @@ export default /* @ngInject */ (OvhApiTelephony) => {
     this.setOptions(screenListOptions);
 
     // other attributes
-    this.id = _.get(screenListOptions, this.featureType === 'sip' ? 'id' : 'conditionId') || `tmp_${_.random(_.now())}`;
-    this.state = _.get(screenListOptions, 'state') || 'OK';
+    this.id = get(screenListOptions, this.featureType === 'sip' ? 'id' : 'conditionId') || `tmp_${random(now())}`;
+    this.state = get(screenListOptions, 'state') || 'OK';
   }
 
   /* -----  End of CONSTRUCTOR  ------*/
@@ -56,11 +58,11 @@ export default /* @ngInject */ (OvhApiTelephony) => {
   TucVoipScreenScreenList.prototype.setOptions = function (screenListOptions) {
     const self = this;
 
-    self.callNumber = _.get(screenListOptions, self.featureType === 'sip' ? 'callNumber' : 'callerIdNumber', null);
-    self.type = _.get(screenListOptions, self.featureType === 'sip' ? 'type' : 'screenListType', null);
+    self.callNumber = get(screenListOptions, self.featureType === 'sip' ? 'callNumber' : 'callerIdNumber', null);
+    self.type = get(screenListOptions, self.featureType === 'sip' ? 'type' : 'screenListType', null);
 
     if (self.featureType !== 'sip') {
-      self.destinationNumber = _.get(screenListOptions, 'destinationNumber', null);
+      self.destinationNumber = get(screenListOptions, 'destinationNumber', null);
     }
 
     return self;

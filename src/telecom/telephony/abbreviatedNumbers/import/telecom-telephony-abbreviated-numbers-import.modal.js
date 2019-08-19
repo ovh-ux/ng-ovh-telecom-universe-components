@@ -1,6 +1,8 @@
 import angular from 'angular';
 import CSV from 'CSV-JS';
-import _ from 'lodash';
+import filter from 'lodash/filter';
+import map from 'lodash/map';
+import reduce from 'lodash/reduce';
 
 export default /* @ngInject */ function (
   $scope,
@@ -23,7 +25,7 @@ export default /* @ngInject */ function (
     CSV.DETECT_TYPES = false;
     try {
       const csv = CSV.parse(e.target.result);
-      self.sample = _.map(csv, (line) => {
+      self.sample = map(csv, (line) => {
         const abbrObj = {
           abbreviatedNumber: {
             value: line[0] || '???',
@@ -42,7 +44,7 @@ export default /* @ngInject */ function (
             isValid: self.namePattern.test(line[3]),
           },
         };
-        abbrObj.isValid = _.reduce(
+        abbrObj.isValid = reduce(
           Object.keys(abbrObj),
           (total, elt) => total && abbrObj[elt].isValid,
           true,
@@ -120,8 +122,8 @@ export default /* @ngInject */ function (
   this.send = function () {
     this.importing = true;
     this.imported = [];
-    const validData = _.map(
-      _.filter(this.sample, 'isValid'),
+    const validData = map(
+      filter(this.sample, 'isValid'),
       elt => ({
         abbreviatedNumber: elt.abbreviatedNumber.value,
         destinationNumber: elt.destinationNumber.value,
@@ -132,7 +134,7 @@ export default /* @ngInject */ function (
     this.total = validData.length;
     this.rejected = this.sample.length - this.total;
     this.progress = this.rejected;
-    return $q.all(_.map(
+    return $q.all(map(
       validData,
       elt => $q.when(self.saveCallback({ value: elt })).then(
         () => {

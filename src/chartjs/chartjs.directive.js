@@ -1,4 +1,5 @@
-import _ from 'lodash';
+import set from 'lodash/set';
+import uniqueId from 'lodash/uniqueId';
 import Chart from 'chart.js'; // eslint-disable-line
 
 import template from './chartjs.html';
@@ -13,8 +14,8 @@ export default /* @ngInject */ () => ({
   template,
   link(scope, element, attrs, controller) {
     const canvas = element.children().get(0);
-    canvas.id = _.uniqueId('tucChartjs');
-    _.set(controller, 'ctx', canvas.getContext('2d'));
+    canvas.id = uniqueId('tucChartjs');
+    set(controller, 'ctx', canvas.getContext('2d'));
   },
   controller: /* @ngInject */ function directiveController($scope) {
     const self = this;

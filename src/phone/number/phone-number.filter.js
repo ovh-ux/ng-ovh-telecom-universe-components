@@ -1,4 +1,5 @@
-import _ from 'lodash';
+import isString from 'lodash/isString';
+import trim from 'lodash/trim';
 
 export default () => {
   /**
@@ -22,7 +23,7 @@ export default () => {
   const numberOnlyRegex = /^[0-9]+$/;
 
   function prettifyNumber(rawNumber) {
-    if (!_.isString(rawNumber)) {
+    if (!isString(rawNumber)) {
       return rawNumber;
     }
 
@@ -50,7 +51,7 @@ export default () => {
         // add space every two characters
         suffix = suffix.replace(/([0-9]{2})/g, '$1 ');
       }
-      return _.trim(`+${prefix} ${suffix}`);
+      return trim(`+${prefix} ${suffix}`);
     });
   }
 

@@ -1,4 +1,5 @@
-import _ from 'lodash';
+import assignIn from 'lodash/assignIn';
+import head from 'lodash/head';
 
 /* eslint-disable */
 /**
@@ -33,7 +34,7 @@ export default (jsPlumb, jsPlumbUtil) => {
     const _super = jsPlumb.Connectors.AbstractConnector.apply(this, arguments);
     this.type = 'TucTwoSegments';
 
-    const parameters = _.extend({ radius: 10 }, params);
+    const parameters = assignIn({ radius: 10 }, params);
 
     /**
          * Compute the length of a vector
@@ -194,7 +195,7 @@ export default (jsPlumb, jsPlumbUtil) => {
         Math.pow(a.x, 2) + Math.pow(a.y - shift, 2) - Math.pow(dist, 2),
       );
 
-      const solutionX = _.first(solve.filter(x => (x >= Math.min(a.x, b.x)) && (x <= Math.max(a.x, b.x))));
+      const solutionX = head(solve.filter(x => (x >= Math.min(a.x, b.x)) && (x <= Math.max(a.x, b.x))));
 
       return {
         x: solutionX,

@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import get from 'lodash/get';
 
 /**
  *  @ngdoc object
@@ -37,7 +37,7 @@ export default /* @ngInject */ (TucVoipService, TUC_TELEPHONY_ALIAS_FEATURE_TYPE
      *  @return {Boolean}
      */
     isAPortabilityAlias() {
-      const publicOfferName = _.get(this, 'getPublicOffer.name', '');
+      const publicOfferName = get(this, 'getPublicOffer.name', '');
       const regExp = new RegExp(/portability/);
       return regExp.test(publicOfferName);
     }

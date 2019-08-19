@@ -1,8 +1,8 @@
-import _ from 'lodash';
+import get from 'lodash/get';
 
 export default () => function (err) {
-  return _.get(err, 'data.value.message')
-               || _.get(err, 'data.message')
-               || _.get(err, 'statusText')
+  return get(err, 'data.value.message')
+               || get(err, 'data.message')
+               || get(err, 'statusText')
                || err;
 };

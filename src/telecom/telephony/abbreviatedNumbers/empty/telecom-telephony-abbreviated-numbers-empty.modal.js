@@ -1,5 +1,5 @@
 import angular from 'angular';
-import _ from 'lodash';
+import map from 'lodash/map';
 
 export default /* @ngInject */ function ($q, $uibModalInstance, data) {
   const self = this;
@@ -18,7 +18,7 @@ export default /* @ngInject */ function ($q, $uibModalInstance, data) {
     this.removing = true;
     this.total = this.abbreviatedNumbers.length;
     this.progress = 0;
-    return $q.all(_.map(
+    return $q.all(map(
       self.abbreviatedNumbers,
       elt => $q.when(self.removeCallback({ value: elt })).finally(() => {
         self.progress += 1;

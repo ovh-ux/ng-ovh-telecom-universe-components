@@ -1,5 +1,5 @@
 import angular from 'angular';
-import _ from 'lodash';
+import set from 'lodash/set';
 
 /**
  *  @ngdoc service
@@ -46,7 +46,7 @@ export default class {
       }));
 
       // set service feature with TucVoipLine instance previously created
-      _.set(service, 'feature', feature);
+      set(service, 'feature', feature);
 
       return service.feature;
     });

@@ -1,5 +1,5 @@
 import angular from 'angular';
-import _ from 'lodash';
+import map from 'lodash/map';
 
 export default /* @ngInject */ function (
   $stateParams,
@@ -46,7 +46,7 @@ export default /* @ngInject */ function (
     }
 
     self.isLoading = true;
-    return $q.all(_.map(toAdd, number => param.addScreenList({
+    return $q.all(map(toAdd, number => param.addScreenList({
       screen: {
         callNumber: number,
         nature,
