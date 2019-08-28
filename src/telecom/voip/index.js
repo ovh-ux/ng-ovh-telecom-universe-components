@@ -14,6 +14,7 @@ import TucVoipServiceAlias from './service/alias/voip-service-alias.factory';
 import TucVoipServiceLine from './service/line/voip-service-line.factory';
 import TucVoipService from './service/voip-service.factory';
 import tucVoipBillingAccount from './billingAccount/voip-billing-account.service';
+import tucVoipCarrierSip from './carrier-sip/voip-carrier-sip.service';
 import tucVoipFax from './feature/line/fax/voip-feature-line-fax.service';
 import tucVoipLinePhoneFunction from './feature/line/line/phone/function/voip-feature-line-line-phone-function.service';
 import tucVoipLinePhone from './feature/line/line/phone/voip-feature-line-line-phone.service';
@@ -42,6 +43,7 @@ angular
   .factory('TucVoipServiceLine', TucVoipServiceLine)
   .factory('TucVoipService', TucVoipService)
   .service('tucVoipBillingAccount', tucVoipBillingAccount)
+  .service('tucVoipCarrierSip', tucVoipCarrierSip)
   .service('tucVoipFax', tucVoipFax)
   .service('tucVoipLinePhoneFunction', tucVoipLinePhoneFunction)
   .service('tucVoipLinePhone', tucVoipLinePhone)
